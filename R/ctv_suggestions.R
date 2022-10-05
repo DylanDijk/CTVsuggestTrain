@@ -1,21 +1,19 @@
-# Objects I need to be saved:
-  # The `predicted_probs_for_suggestions` object can then just filter this.
-  # Need to have script that I can schedule that saves the `predicted_probs_for_suggestions` object
-
-  # An idea is to have a `train_model()` function that allows the user to train the model
-  # themselves so they have an up to date model instead of relying on my scheduling.
-
-library(pins)
-library(glmnet)
-
-
-board = board_folder(path = "C:/Users/Dylan Dijk/Documents/Projects/CRAN-Task-Views-Recommendations/Pins_board/")
-
-
+#' Output suggestions for packages to be added to a Task View
+#'
+#' @param taskview A character vector with one element, must be one of the [Task Views available](https://github.com/cran-task-views/ctv#available-task-views)
+#' @param n An integer that decides the number of suggestions to show.
+#'
+#' @return A data frame with suggested packages and there classification probability
+#'
+#'
+#' @export
 ctv_suggestions = function(taskview = "Econometrics", n = 5){
 
-  predicted_probs_for_suggestions = board %>% pin_read("predicted_probs_for_suggestions")
+
+  predicted_probs_for_suggestions = load(url("https://github.com/DylanDijk/CRAN-Task-Views-Recommendations/blob/main/predicted_probs_for_suggestions.rda?raw=true"))
+
 
   suggestions = predicted_probs_for_suggestions[,c(paste0(taskview), "Packages"), drop = F][order(predicted_probs_for_suggestions[,paste0(taskview), drop = F], decreasing = T),, drop = F][1:n,]
   return(suggestions)
 }
+
