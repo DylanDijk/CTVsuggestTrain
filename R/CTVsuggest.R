@@ -12,8 +12,7 @@ CTVsuggest = function(taskview = "Econometrics", n = 5){
 
 load(url("https://github.com/DylanDijk/CRAN-Task-Views-Recommendations/blob/main/Output/predicted_probs_for_suggestions.rda?raw=true"))
 
-
-  suggestions = predicted_probs_for_suggestions[,c(paste0(taskview), "Packages"), drop = F][order(predicted_probs_for_suggestions[,paste0(taskview), drop = F], decreasing = T),, drop = F][1:n,]
+  suggestions = predicted_probs_for_suggestions[,c(paste0(taskview), "Packages"), drop = F][order(predicted_probs_for_suggestions[,paste0(taskview)], decreasing = T),, drop = F][1:n,]
   return(suggestions)
 }
 
