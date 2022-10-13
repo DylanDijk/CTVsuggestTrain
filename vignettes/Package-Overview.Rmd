@@ -3,8 +3,10 @@ title: "Package-Overview"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Package-Overview}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -18,12 +20,15 @@ knitr::opts_chunk$set(
 
 # CTVsuggest Package
 
+The aim of this package is to give suggestions for packages to be added to Task Views. There is a main function `CTVsuggest()` that outputs these suggestions.
+
+
 ## CTVsuggest() function
 
-I have given the package and function the same name so that it is easy to remember, both are named CTVsuggest.
+<!-- I have given the package and function the same name so that it is easy to remember, both are named **CTVsuggest**. -->
 
 First install the **CTVsuggest** package:
-```{r}
+```{r, warning = FALSE, message = FALSE, results='hide'}
 library(devtools)
 install_github("DylanDijk/CTVsuggest")
 ```
@@ -33,11 +38,85 @@ Then attach the package.
 library(CTVsuggest)
 ```
 
-Then to get the top 5 suggested packages for the NaturalLanguage Task View 
+### CTVsuggest() Example
+Then to get the top 5 suggested packages for the **NaturalLanguageProcessing** Task View 
 
 ```{r}
-CTVsu
+CTVsuggest(n = 5, taskview = "NaturalLanguageProcessing")
 ```
 
+
+## The Package Workflow
+
+At the moment I have a script that I schedule that extracts the most up to date data, trains the model and then pushes the predicted classification probabilities for each package to a gitHub repo. In the latter sections I explain how the model is constructed.
+
+
+## Functions
+
+## The Model
+
+### Multinomial Logistic Regression
+The model aims to give a Task View suggestion after being giving some set of features of an unassigned package. There are quite a few packages that are assigned to multiple R packages, but I have looked at just classifying packages to a single Task View. Therefore, I have set this up as a multi-class classification problem. 
+
+However, it would not be reasonable to
+assign a Task View to every package. This would depart from the objective of Task Views,
+which is to give a sharp focus on packages that are needed for a task. For this reason, the
+model also has the possibility of assigning a package to no Task View. Therefore, the number of possible labels in this classification problem is the number of Task Views + 1.
+
+
+To perform this multi-class classification problem I have used **Multinomial Logistic Regression** with a LASSO penalty, trained using the `cv.glmnet` package.
+
+### Features
+
+I have used three different types of data to create the features for this model:
+
+- Package and Task View text data
+- Package dependencies
+- Author collaborations
+
+With each of these three types of data I have creates n + 1 features where n is the number of Task Views.
+
+
+
+#### Package and Task View text data
+
+-Each package on CRAN has a title and description describing the purpose of the package 
+-Each Task View has a page with text describing its scope
+
+For each package I have combined the title and description text, then I have vectorised this text as well as the Task View text.
+Then for each package I have calculated the cosine similarity between its text vector against all of the Task Views text vectors. 
+
+
+#### Package dependencies
+
+For each package I look at the immediate hard dependencies of packages, and then calculate the proportion
+of the assignment of these packages to Task Views and no assignment.
+
+#### Author collaborations
+
+
+
+
+### Training Data
+
+### Accuracy
+
+### Predictions
+
+<!-- Due to the huge number of packages -->
+<!-- that are in CRAN it is infeasible for a Task View maintainer to review all of the available -->
+<!-- packages.Therefore, a model that would give a small selection of high quality suggestions -->
+<!-- for the maintainer to then review would be useful. Such a model would also be useful from the perspective of a package developer. After -->
+<!-- publishing their package onto CRAN, they could then check whether they should propose -->
+<!-- their package to one of the Task View maintainers. -->
+
+
+<!-- The model we want to construct should give a Task View suggestion after being giving -->
+<!-- some set of features of an unassigned package. However, it would not be reasonable to -->
+<!-- assign a Task View to every package. This would depart from the objective of Task Views, -->
+<!-- which is to give a sharp focus on packages that are needed for a task. For this reason, the -->
+<!-- model should also have the possibility of assigning a package to no Task View. -->
+<!-- Consequently, the model should have a multicategory response variable, made up of 37 categories. The 36 Task Views with an -->
+<!-- additional “None” category. -->
 
 
