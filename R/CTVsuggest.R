@@ -7,7 +7,7 @@
 #'
 #'
 #' @export
-ctv_suggestions = function(taskview = "Econometrics", n = 5){
+CTVsuggest = function(taskview = "Econometrics", n = 5){
 
 
 load(url("https://github.com/DylanDijk/CRAN-Task-Views-Recommendations/blob/main/Output/predicted_probs_for_suggestions.rda?raw=true"))
