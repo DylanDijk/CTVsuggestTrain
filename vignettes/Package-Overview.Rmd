@@ -1,0 +1,43 @@
+---
+title: "Package-Overview"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Package-Overview}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+
+
+# CTVsuggest Package
+
+## CTVsuggest() function
+
+I have given the package and function the same name so that it is easy to remember, both are named CTVsuggest.
+
+First install the **CTVsuggest** package:
+```{r}
+library(devtools)
+install_github("DylanDijk/CTVsuggest")
+```
+
+Then attach the package.
+```{r}
+library(CTVsuggest)
+```
+
+Then to get the top 5 suggested packages for the NaturalLanguage Task View 
+
+```{r}
+CTVsu
+```
+
+
+
