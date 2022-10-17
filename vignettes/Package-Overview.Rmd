@@ -20,10 +20,12 @@ knitr::opts_chunk$set(
 
 # CTVsuggest Package
 
-The aim of this package is to give suggestions for packages to be added to Task Views. There is a main function `CTVsuggest()` that outputs these suggestions.
+The aim of this package is to give suggestions for packages to be added to Task Views.
+
+There is a main function, `CTVsuggest::CTVsuggest()`, that outputs these suggestions.
 
 
-## CTVsuggest() function
+## CTVsuggest Example
 
 <!-- I have given the package and function the same name so that it is easy to remember, both are named **CTVsuggest**. -->
 
@@ -38,8 +40,8 @@ Then attach the package.
 library(CTVsuggest)
 ```
 
-### CTVsuggest() Example
-Then to get the top 5 suggested packages for the **NaturalLanguageProcessing** Task View 
+
+To output the top 5 suggested packages for the **NaturalLanguageProcessing** Task View 
 
 ```{r}
 CTVsuggest(n = 5, taskview = "NaturalLanguageProcessing")
@@ -48,21 +50,21 @@ CTVsuggest(n = 5, taskview = "NaturalLanguageProcessing")
 
 ## The Package Workflow
 
-At the moment I have a script that I schedule that extracts the most up to date data, trains the model and then pushes the predicted classification probabilities for each package to a gitHub repo. In the latter sections I explain how the model is constructed.
+Currently, I have a script that executes the model building with the most up to date data. The script trains the model, and then I push the predicted classification probabilities for each package to a gitHub repo. 
+
+I now describe how the model is constructed.
 
 
-## Functions
 
 ## The Model
 
 ### Multinomial Logistic Regression
-The model aims to give a Task View suggestion after being giving some set of features of an unassigned package. There are quite a few packages that are assigned to multiple R packages, but I have looked at just classifying packages to a single Task View. Therefore, I have set this up as a multi-class classification problem. 
+The model aims to give a Task View suggestion after being giving some set of features of an unassigned package. There are packages that are assigned to multiple Task Views, but I have looked at classifying packages to a single Task View. Therefore, I have set this up as a multi-class classification problem, compared to a multi-label problem. 
 
-However, it would not be reasonable to
-assign a Task View to every package. This would depart from the objective of Task Views,
-which is to give a sharp focus on packages that are needed for a task. For this reason, the
-model also has the possibility of assigning a package to no Task View. Therefore, the number of possible labels in this classification problem is the number of Task Views + 1.
-
+However, it would not be reasonable to assign a Task View to every package.
+This would depart from the objective of Task Views, which is to give a sharp focus on packages that are needed for a task.
+For this reason, the model also has the possibility of assigning a package to no Task View. 
+Therefore, the number of possible labels in this classification problem is the number of Task Views + 1.
 
 To perform this multi-class classification problem I have used **Multinomial Logistic Regression** with a LASSO penalty, trained using the `cv.glmnet` package.
 
@@ -70,18 +72,22 @@ To perform this multi-class classification problem I have used **Multinomial Log
 
 I have used three different types of data to create the features for this model:
 
-- Package and Task View text data
+- Text data from Package and Task View descriptions
 - Package dependencies
-- Author collaborations
+- Other Author packages
 
-With each of these three types of data I have creates n + 1 features where n is the number of Task Views.
+With each of these three types of data I have creates n + 1 features where n is the number of Task Views. 
+
+I will now go into more detail into how I constructed features from this data.
 
 
 
 #### Package and Task View text data
 
--Each package on CRAN has a title and description describing the purpose of the package 
--Each Task View has a page with text describing its scope
+- Each package on CRAN has a title and description describing the purpose of the package 
+  - Example: [fxregime package web page](https://cran.r-project.org/web/packages/fxregime/index.html)
+- Each Task View has a page with text describing its scope
+  - Example: [Econometrics Task View description](https://cran.r-project.org/web/views/Econometrics.html)
 
 For each package I have combined the title and description text, then I have vectorised this text as well as the Task View text.
 Then for each package I have calculated the cosine similarity between its text vector against all of the Task Views text vectors. 
@@ -89,12 +95,12 @@ Then for each package I have calculated the cosine similarity between its text v
 
 #### Package dependencies
 
-For each package I look at the immediate hard dependencies of packages, and then calculate the proportion
-of the assignment of these packages to Task Views and no assignment.
+For each package I look at the immediate hard dependencies to other packages, and then calculate the proportion
+of the assignment of these packages to Task Views.
 
-#### Author collaborations
+#### Author other packages
 
-
+For each package I look at all of the other packages created by the authors of that package. I then calculate the proportion of these packages that are assigned to each Task View.    
 
 
 ### Training Data
@@ -102,6 +108,10 @@ of the assignment of these packages to Task Views and no assignment.
 ### Accuracy
 
 ### Predictions
+
+
+## Other Functions
+
 
 <!-- Due to the huge number of packages -->
 <!-- that are in CRAN it is infeasible for a Task View maintainer to review all of the available -->

@@ -9,6 +9,9 @@ get_data(test = FALSE, limiting_n_observations = 100)
 \arguments{
 \item{limiting_n_observations}{}
 }
+\value{
+Data objects required for rest of scripts involved in training the model
+}
 \description{
 Title
 }

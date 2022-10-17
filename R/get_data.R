@@ -4,16 +4,15 @@
 #' @param test
 #' @param limiting_n_observations
 #'
-#' @return
-#' @export
+#' @return Data objects required for rest of scripts involved in training the model
+#'
 #'
 #' @examples
 get_data = function(test = FALSE, limiting_n_observations = 100){
 
   message("Downloading package metadat from CRAN package repository")
 
-  RWsearch::tvdb_down(dir = "Data/")
-
+  tvdb = CTVsuggest:::download_taskview_data()
 
   # CRAN snapshot
   ## Data extracted from CRAN package repository
@@ -39,6 +38,7 @@ if(test){
   CRAN_cranly_data = cranly::clean_CRAN_db(packages_db = CRAN_data)
 
 
-  return(list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data))
+  return(list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data, "tvdb" = tvdb))
 
 }
+
