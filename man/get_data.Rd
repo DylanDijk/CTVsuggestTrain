@@ -4,7 +4,7 @@
 \alias{get_data}
 \title{Title}
 \usage{
-get_data(test = FALSE, limiting_n_observations = 100)
+get_data(TEST = FALSE, limiting_n_observations = 100)
 }
 \arguments{
 \item{limiting_n_observations}{}
