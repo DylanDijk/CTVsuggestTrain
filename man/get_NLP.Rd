@@ -4,7 +4,7 @@
 \alias{get_NLP}
 \title{Title}
 \usage{
-get_NLP(TEST = FALSE)
+get_NLP(TEST = FALSE, limiting_n_observations = 100)
 }
 \arguments{
 \item{TEST}{Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.}

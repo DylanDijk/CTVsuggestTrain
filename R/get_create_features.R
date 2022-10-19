@@ -1,6 +1,16 @@
-get_create_features = function(TEST = FALSE){
+#' Title
+#'
+#' @param TEST
+#' @param limiting_n_observations
+#'
+#' @return
+#' @export
+#'
+#' @examples
+get_create_features = function(TEST = FALSE, limiting_n_observations = 100){
 
-  get_NLP_output = CTVsuggest:::get_NLP(TEST = TEST)
+
+  get_NLP_output = CTVsuggest:::get_NLP(TEST = TEST, limiting_n_observations = limiting_n_observations)
   input_CRAN_data = get_NLP_output$input_CRAN_data
   tvdb = input_CRAN_data$tvdb
 
@@ -57,8 +67,8 @@ pac_network_igraph = igraph::as.igraph(All_data$pac_network)
 
 # Just looking at Packages with assigned task view
 # Packages that are assigned to a Task View and are not hosted on CRAN
-not_in_CRAN = Reduce(c,RWsearch::tvdb_pkgs(RWsearch::tvdb_vec()))[!(Reduce(c,RWsearch::tvdb_pkgs(RWsearch::tvdb_vec())) %in% input_CRAN_data$CRAN_data$Package)]
-packages_assigned_Task_View = Reduce(c,RWsearch::tvdb_pkgs(RWsearch::tvdb_vec()))
+not_in_CRAN = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))[!(Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb)) %in% input_CRAN_data$CRAN_data$Package)]
+packages_assigned_Task_View = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))
 # Removing the packages that are not hosted on CRAN
 packages_assigned_Task_View = packages_assigned_Task_View[!(packages_assigned_Task_View %in% not_in_CRAN)]
 # Removing duplicates
@@ -85,9 +95,9 @@ taskviews_of_pckgs = vector(mode = "list", length = length(packages_assigned_Tas
 for(j in 1:length(packages_assigned_Task_View)){
   for(i in 1:length(tvdb)){
     print(paste(j,i))
-    if(packages_assigned_Task_View[j] %in% RWsearch::tvdb_pkgs(RWsearch::tvdb_vec()[i])) {
+    if(packages_assigned_Task_View[j] %in% RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb)[i], tvdb = input_CRAN_data$tvdb)) {
 
-      taskviews_of_pckgs[[j]] = append(taskviews_of_pckgs[[j]], RWsearch::tvdb_vec()[i])
+      taskviews_of_pckgs[[j]] = append(taskviews_of_pckgs[[j]], RWsearch::tvdb_vec(input_CRAN_data$tvdb)[i])
 
     }
   }
@@ -108,8 +118,8 @@ names(taskviews_of_pckgs) = packages_assigned_Task_View
 
 ########## Creating the response matrix #######
 
-response_matrix = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(RWsearch::tvdb_vec()) + 1)
-colnames(response_matrix) = c(RWsearch::tvdb_vec(), "none")
+response_matrix = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(RWsearch::tvdb_vec(tvdb)) + 1)
+colnames(response_matrix) = c(RWsearch::tvdb_vec(tvdb), "none")
 
 # Creating matrix that denotes which Task View(s) each package belongs to
 for(i in 1:length(input_CRAN_data$all_CRAN_pks)){
@@ -165,8 +175,8 @@ taskviews_pac_network_rem_edges_igraph = igraph::delete.edges(pac_network_igraph
 # Creating matrix where for each package it gives the proportion of immediate hard dependencies.
 # In the `neighbours` function `mode` is set to `c("all")` meaning that we are looking at on both
 # dependencies of a package and its reverse dependencies.
-feature_matrix_all_neighbour_pkgs = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(RWsearch::tvdb_vec()) + 1)
-colnames(feature_matrix_all_neighbour_pkgs) = c(RWsearch::tvdb_vec(), "none")
+feature_matrix_all_neighbour_pkgs = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(RWsearch::tvdb_vec(tvdb)) + 1)
+colnames(feature_matrix_all_neighbour_pkgs) = c(RWsearch::tvdb_vec(tvdb), "none")
 
 for(i in 1:length(input_CRAN_data$all_CRAN_pks)){
 
@@ -218,14 +228,14 @@ fun1 = function(x){
   z = unlist(taskviews_of_pckgs[unique(unlist(packages_of_authors[x]))])
 
   if(is.null(z)){
-    author_tsk_view_prop = c(rep(0,length(RWsearch::tvdb_vec())),1)
-    names(author_tsk_view_prop) = c(RWsearch::tvdb_vec(), "none")
+    author_tsk_view_prop = c(rep(0,length(RWsearch::tvdb_vec(tvdb))),1)
+    names(author_tsk_view_prop) = c(RWsearch::tvdb_vec(tvdb), "none")
 
 
   }else{
     author_tsk_view_prop = prop.table(table(z))
-    mat_fill = matrix(0, nrow = 1, ncol = length(RWsearch::tvdb_vec()) + 1)
-    colnames(mat_fill) = c(RWsearch::tvdb_vec(), "none")
+    mat_fill = matrix(0, nrow = 1, ncol = length(RWsearch::tvdb_vec(tvdb)) + 1)
+    colnames(mat_fill) = c(RWsearch::tvdb_vec(tvdb), "none")
     mat_fill[1,names(author_tsk_view_prop)] = as.vector(author_tsk_view_prop)
     author_tsk_view_prop = mat_fill
   }
@@ -319,28 +329,6 @@ features = features[,colnames(features) != "Row.names"]
 
 
 
-
-
-
-#### Garbage Collection #####
-objects_created = ls()[-pmatch(current_objects,ls())]
-objects_needed = c("response_matrix","features","All_data","pac_network_igraph","final_package_names")
-objects_to_remove = objects_created[-pmatch(intersect(objects_needed,objects_created),objects_created)]
-
-library(pryr)
-message(
-  paste("memory freed up:",
-        mem_change(
-          rm(list = objects_to_remove)
-        )
-  )
-)
-
-rm(objects_created, objects_needed, objects_to_remove)
-
-mem_change(
-  rm(feature_matrix_titles_descriptions_packages_cosine, CRAN_cranly_data, CRAN_data)
-)
 
 return(list("response_matrix" = response_matrix, "features" = features, "All_data" = All_data, "pac_network_igraph" = pac_network_igraph, "input_CRAN_data" = input_CRAN_data))
 
