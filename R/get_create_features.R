@@ -4,7 +4,7 @@
 #' @param limiting_n_observations
 #'
 #' @return
-#' @export
+#'
 #'
 #' @examples
 get_create_features = function(TEST = FALSE, limiting_n_observations = 100){

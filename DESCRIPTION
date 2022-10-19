@@ -15,4 +15,11 @@ Suggests:
 VignetteBuilder: knitr
 Imports: 
     cranly,
-    RWsearch
+    dplyr,
+    lsa,
+    pbapply,
+    RWsearch,
+    stringr,
+    textstem,
+    tidytext,
+    tools

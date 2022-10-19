@@ -3,7 +3,7 @@
 #' @param TEST Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.
 #'
 #' @return
-#' @export
+#'
 #'
 #' @examples
 get_NLP = function(TEST = FALSE, limiting_n_observations = 100){
