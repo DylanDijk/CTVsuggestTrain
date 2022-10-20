@@ -1,9 +1,10 @@
 
 #' Gets data for model training. This function is run inside `CTVsuggest:::get_NLP()`.
 #'
-#' @param TEST logical. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+#' @param TEST logical. Default is [`FALSE`].. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 #'
-#' More precisely, if TRUE a random selection of rows `CRAN_data` of length `limiting_n_observations` is selected.  Default is [`FALSE`].
+#' More precisely, if TRUE a random selection of rows from `CRAN_data` is selected, where the number of rows
+#' is given by `limiting_n_observations`.
 #' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
 #'
 #' @return Data objects required for rest of scripts involved in training the model
