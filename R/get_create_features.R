@@ -1,7 +1,7 @@
 #' Title
 #'
-#' @param TEST
-#' @param limiting_n_observations
+#' @param TEST Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.
+#' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
 #'
 #' @return
 #'
@@ -30,6 +30,7 @@ get_create_features = function(TEST = FALSE, limiting_n_observations = 100){
 # features
 # All_data
 # pac_network_igraph
+
 
 
 

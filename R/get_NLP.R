@@ -4,6 +4,7 @@
 #' Then with the corpus of words generated from the Task Views text, it creates TF_IDF vectors for each of the words.
 #'
 #' @param TEST Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.
+#' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
 #'
 #' @return Returns
 #'\itemize{
