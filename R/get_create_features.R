@@ -33,7 +33,7 @@ get_create_features = function(TEST = FALSE, limiting_n_observations = 100){
 
 
 
-#########
+#### ----------------------------------------------------------------------------------------------- ####
 
 #### Replacing missing authors with maintainers ####
 # For some packages on CRAN the authors have not been listed in the standard way.
@@ -50,22 +50,37 @@ for(i in 1:length(which(unlist(lapply(input_CRAN_data$CRAN_cranly_data$author, l
   input_CRAN_data$CRAN_cranly_data$author[[index_of_no_authors[i]]] = input_CRAN_data$CRAN_cranly_data$maintainer[index_of_no_authors[i]]
 }
   }
-#######
+
+#### ----------------------------------------------------------------------------------------------- ####
 
 
+
+
+#### ----------------------------------------------------------------------------------------------- ####
 
 ##### Building author and package networks ####
-# All_data = board %>% pin_read("All_data")
+# Note that if running a test and have restricted the number of packages,
+  # when building the package network the number of packages listed in the node set will increase.
+  # Because we are looking at all dependencies of these packages.
+  # Building the package network will also add packages that are not hosted on CRAN but are hosted on other repos.
 aut_network <- cranly::build_network(input_CRAN_data$CRAN_cranly_data, perspective = 'author')
 pac_network <- cranly::build_network(input_CRAN_data$CRAN_cranly_data, perspective = 'package')
 All_data = list("aut_network" = aut_network, "pac_network" = pac_network)
-# board %>% pin_write(All_data, "All_data", type = "rds")
 
 
 # All_data_igraph = as.igraph(All_data$pac_network)
 pac_network_igraph = igraph::as.igraph(All_data$pac_network)
 
-# Just looking at Packages with assigned task view
+#### ----------------------------------------------------------------------------------------------- ####
+
+
+
+#### ----------------------------------------------------------------------------------------------- ####
+
+
+# I now want to create a vector of packages that are assigned to a Task View and are hosted on CRAN
+  # As there exist packages that belong to a Task View but are not hosted on CRAN
+
 # Packages that are assigned to a Task View and are not hosted on CRAN
 not_in_CRAN = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))[!(Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb)) %in% input_CRAN_data$CRAN_data$Package)]
 packages_assigned_Task_View = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))
@@ -74,7 +89,6 @@ packages_assigned_Task_View = packages_assigned_Task_View[!(packages_assigned_Ta
 # Removing duplicates
 packages_assigned_Task_View = unique(packages_assigned_Task_View)
 
-#######
 
 # Just looking at Hard Depenedencies
 # dep_imp_edges = which(!is.element(E(All_taskviews_igraph)$type, c("depends","imports", "linking_to")))

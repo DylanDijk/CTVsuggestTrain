@@ -74,7 +74,7 @@ I have used three different types of data to create the features for this model:
 
 - Text data from Package and Task View descriptions
 - Package dependencies
-- Other Author packages
+- Other Packages developed by the Authors
 
 With each of these three types of data I have creates n + 1 features where n is the number of Task Views. 
 
@@ -82,7 +82,7 @@ I will now go into more detail into how I constructed features from this data.
 
 
 
-#### Package and Task View text data
+#### Text data from Package and Task View descriptions
 
 - Each package on CRAN has a title and description describing the purpose of the package 
   - Example: [fxregime package web page](https://cran.r-project.org/web/packages/fxregime/index.html)
@@ -98,7 +98,7 @@ Then for each package I have calculated the cosine similarity between its text v
 For each package I look at the immediate hard dependencies to other packages, and then calculate the proportion
 of the assignment of these packages to Task Views.
 
-#### Author other packages
+#### Other Packages developed by the Authors
 
 For each package I look at all of the other packages created by the authors of that package. I then calculate the proportion of these packages that are assigned to each Task View.    
 

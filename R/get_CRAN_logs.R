@@ -80,7 +80,6 @@ get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100){
 
 
 
-  #####
 
   #### Finding packages that have no assigned Task View that meet the decided download threshold ####
   # Vector of package names that do not have a Task View
