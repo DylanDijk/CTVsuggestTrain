@@ -7,7 +7,12 @@
 get_create_features(TEST = FALSE, limiting_n_observations = 100)
 }
 \arguments{
-\item{limiting_n_observations}{}
+\item{TEST}{Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.}
+
+\item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+}
+\value{
+
 }
 \description{
 Title

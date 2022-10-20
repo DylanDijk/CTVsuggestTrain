@@ -83,10 +83,9 @@ pac_network_igraph = igraph::as.igraph(All_data$pac_network)
   # As there exist packages that belong to a Task View but are not hosted on CRAN
 
 # Packages that are assigned to a Task View and are not hosted on CRAN
-not_in_CRAN = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))[!(Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb)) %in% input_CRAN_data$CRAN_data$Package)]
-packages_assigned_Task_View = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))
+task_view_packages = RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb)
 # Removing the packages that are not hosted on CRAN
-packages_assigned_Task_View = packages_assigned_Task_View[!(packages_assigned_Task_View %in% not_in_CRAN)]
+packages_assigned_Task_View = Reduce(c,task_view_packages)[Reduce(c,task_view_packages) %in% input_CRAN_data$all_CRAN_pks]
 # Removing duplicates
 packages_assigned_Task_View = unique(packages_assigned_Task_View)
 
@@ -101,9 +100,6 @@ packages_assigned_Task_View = unique(packages_assigned_Task_View)
 
 
 #### Creating list of packages with the task views assigned to each one ####
-
-# taskviews_of_pckgs     = board %>% pin_read("taskviews_of_pckgs")
-# This code is a modified version of the generating_taskviews script
 
 taskviews_of_pckgs = vector(mode = "list", length = length(packages_assigned_Task_View))
 
