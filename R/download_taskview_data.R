@@ -9,6 +9,9 @@
 #'
 #'
 #' @examples
+#' \donttest{
+#' tvdb = download_taskview_data()
+#' }
 download_taskview_data = function(repos = getOption("repos")[1]){
   urlrds <- paste0(repos, "/src/contrib/Views.rds")
   dest <- tempfile()

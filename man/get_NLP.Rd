@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_NLP.R
 \name{get_NLP}
 \alias{get_NLP}
-\title{Title}
+\title{Creates the NLP features for the model using Task View text and Package description text}
 \usage{
 get_NLP(TEST = FALSE, limiting_n_observations = 100)
 }
@@ -10,5 +10,5 @@ get_NLP(TEST = FALSE, limiting_n_observations = 100)
 \item{TEST}{Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.}
 }
 \description{
-Title
+Reads the Task View text from the markdown files on GitHub then cleans it. Then with the corpus of the Task Views, it creates the TF_IDF vectors for each of the words.
 }

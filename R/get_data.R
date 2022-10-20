@@ -1,11 +1,19 @@
 
-#' Title
+#' Gets data for model training. This function is run inside `CTVsuggest:::get_NLP()`.
 #'
-#' @param TEST
-#' @param limiting_n_observations
+#' @param TEST logical. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+#'
+#' More precisely, if TRUE a random selection of rows `CRAN_data` of length `limiting_n_observations` is selected.  Default is [`FALSE`].
+#' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
 #'
 #' @return Data objects required for rest of scripts involved in training the model
-#'
+#'\itemize{
+#'   \item CRAN_data - Data extracted from CRAN package repository using [tools::CRAN_package_db()]. With duplicated packages removed. If TRUE then a random selection of rows `CRAN_data` of length `limiting_n_observations` is selected.
+#'   \item all_CRAN_pks - Package names that have data included in the `CRAN_data` object.
+#'   \item CRAN_cranly_data - cranly::clean_CRAN_db a [`data.frame`] with the same variables as CRAN_data
+#'   \item tvdb - list object of class `ctvlist` that contains information about the Task Views. This downloaded using the function `CTVsuggest:::download_taskview_data()` which is a modified version of [`RWsearch::tvdb_down()`]
+#'   \item TEST - returns the `TEST` value used in the function. As the function is used within the `get_nlp` function.
+#' }
 #'
 #' @examples
 get_data = function(TEST = FALSE, limiting_n_observations = 100){
@@ -31,7 +39,7 @@ if(TEST){
 }
   ################################
 
-  ### all_CRAN_pks is all of the current packages available in CRAN
+  ### all_CRAN_pks is all of the current packages available in CRAN. Or subset of these if `TEST` is set to `TRUE`
   all_CRAN_pks = CRAN_data$Package
 
 

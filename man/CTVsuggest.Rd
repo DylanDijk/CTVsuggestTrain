@@ -15,5 +15,5 @@ CTVsuggest(taskview = "Econometrics", n = 5)
 A data frame with suggested packages and there classification probability
 }
 \description{
-Output suggestions for packages to be added to a Task View
+Outputs suggestions for packages to be added to a Task View.
 }

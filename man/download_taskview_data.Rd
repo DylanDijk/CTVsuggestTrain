@@ -15,3 +15,8 @@ Data of the current Task Views available
 \description{
 Title
 }
+\examples{
+\donttest{
+tvdb = download_taskview_data()
+}
+}
