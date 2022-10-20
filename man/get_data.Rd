@@ -7,22 +7,29 @@
 get_data(TEST = FALSE, limiting_n_observations = 100)
 }
 \arguments{
-\item{TEST}{logical. If TRUE then a subset of the data from CRAN is extracted this to speed up testing.
+\item{TEST}{logical. Default is \code{\link{FALSE}}.. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 
-More precisely, if TRUE a random selection of rows \code{CRAN_data} of length \code{limiting_n_observations} is selected.  Default is \code{\link{FALSE}}.}
+More precisely, if TRUE a random selection of rows from \code{CRAN_data} is selected, where the number of rows
+is given by \code{limiting_n_observations}.}
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 }
 \value{
 Data objects required for rest of scripts involved in training the model
 \itemize{
-\item CRAN_data - Data extracted from CRAN package repository using \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}. With duplicated packages removed. If TRUE then a random selection of rows \code{CRAN_data} of length \code{limiting_n_observations} is selected.
+\item CRAN_data - Data extracted from CRAN package repository using \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}. Duplicated packages removed. If \code{TEST} = \code{\link{TRUE}} then a random selection of rows \code{CRAN_data} of length \code{limiting_n_observations} is selected.
 \item all_CRAN_pks - Package names that have data included in the \code{CRAN_data} object.
-\item CRAN_cranly_data - cranly::clean_CRAN_db a \code{\link{data.frame}} with the same variables as CRAN_data
-\item tvdb - list object of class \code{ctvlist} that contains information about the Task Views. This downloaded using the function \code{CTVsuggest:::download_taskview_data()} which is a modified version of \code{\link[RWsearch:tvdb]{RWsearch::tvdb_down()}}
-\item TEST - returns the \code{TEST} value used in the function. As the function is used within the \code{get_nlp} function.
+\item CRAN_cranly_data - \code{\link{data.frame}} with class \code{\link{cranly_db}} that is created using \code{\link[cranly:clean_CRAN_db]{cranly::clean_CRAN_db()}}. The \code{\link{data.frame}} has the same variables as \code{CRAN_data}.
+\item tvdb - list object of class \code{ctvlist} that contains information about the Task Views. This is downloaded using the function \code{CTVsuggest:::download_taskview_data()} which is a modified version of \code{\link[RWsearch:tvdb]{RWsearch::tvdb_down()}}
+\item TEST - returns the \code{TEST} value used in the function. As this function is used within the \code{get_nlp} function, and information about whether a subset of the full data
+is being used needs to be carried forward.
 }
 }
 \description{
 Gets data for model training. This function is run inside \code{CTVsuggest:::get_NLP()}.
+}
+\examples{
+\donttest{
+CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
+}
 }

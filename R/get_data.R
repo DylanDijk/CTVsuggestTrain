@@ -9,14 +9,18 @@
 #'
 #' @return Data objects required for rest of scripts involved in training the model
 #'\itemize{
-#'   \item CRAN_data - Data extracted from CRAN package repository using [tools::CRAN_package_db()]. With duplicated packages removed. If TRUE then a random selection of rows `CRAN_data` of length `limiting_n_observations` is selected.
+#'   \item CRAN_data - Data extracted from CRAN package repository using [tools::CRAN_package_db()]. Duplicated packages removed. If `TEST` = [`TRUE`] then a random selection of rows `CRAN_data` of length `limiting_n_observations` is selected.
 #'   \item all_CRAN_pks - Package names that have data included in the `CRAN_data` object.
-#'   \item CRAN_cranly_data - cranly::clean_CRAN_db a [`data.frame`] with the same variables as CRAN_data
-#'   \item tvdb - list object of class `ctvlist` that contains information about the Task Views. This downloaded using the function `CTVsuggest:::download_taskview_data()` which is a modified version of [`RWsearch::tvdb_down()`]
-#'   \item TEST - returns the `TEST` value used in the function. As the function is used within the `get_nlp` function.
+#'   \item CRAN_cranly_data - [`data.frame`] with class [`cranly_db`] that is created using [`cranly::clean_CRAN_db()`]. The [`data.frame`] has the same variables as `CRAN_data`.
+#'   \item tvdb - list object of class `ctvlist` that contains information about the Task Views. This is downloaded using the function `CTVsuggest:::download_taskview_data()` which is a modified version of [`RWsearch::tvdb_down()`]
+#'   \item TEST - returns the `TEST` value used in the function. As this function is used within the `get_nlp` function, and information about whether a subset of the full data
+#'   is being used needs to be carried forward.
 #' }
 #'
 #' @examples
+#' \donttest{
+#' CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
+#' }
 get_data = function(TEST = FALSE, limiting_n_observations = 100){
 
   message("Downloading package metadat from CRAN package repository")
