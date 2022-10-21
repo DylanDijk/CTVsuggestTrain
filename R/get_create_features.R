@@ -23,7 +23,7 @@ get_create_features = function(TEST = FALSE, limiting_n_observations = 100){
 # features
 # All_data
 # pac_network_igraph
-
+# final_package_names
 
 #### ----------------------------------------------------------------------------------------------- ####
 
@@ -83,10 +83,11 @@ pac_network_igraph = igraph::as.igraph(All_data$pac_network)
 # I now want to create a vector of packages that are assigned to a Task View and are hosted on CRAN
   # As there exist packages that belong to a Task View but are not hosted on CRAN
 
-# Packages that are assigned to a Task View and are not hosted on CRAN
-task_view_packages = RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb)
+# Packages that are assigned to a Task View
+task_view_packages = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))
+task_view_packages = unique(task_view_packages)
 # Removing the packages that are not hosted on CRAN
-packages_assigned_Task_View = Reduce(c,task_view_packages)[Reduce(c,task_view_packages) %in% input_CRAN_data$all_CRAN_pks]
+packages_assigned_Task_View = task_view_packages[task_view_packages %in% input_CRAN_data$all_CRAN_pks]
 # Removing duplicates
 packages_assigned_Task_View = unique(packages_assigned_Task_View)
 
@@ -342,7 +343,9 @@ features = features[,colnames(features) != "Row.names"]
 
 
 
-return(list("response_matrix" = response_matrix, "features" = features, "All_data" = All_data, "pac_network_igraph" = pac_network_igraph, "input_CRAN_data" = input_CRAN_data))
+return(list("response_matrix" = response_matrix, "features" = features, "All_data" = All_data,
+            "pac_network_igraph" = pac_network_igraph, "final_package_names" = final_package_names,
+            "input_CRAN_data" = input_CRAN_data))
 
 }
 

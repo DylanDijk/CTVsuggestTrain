@@ -22,7 +22,6 @@ get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100){
 # no_tsk_pckgs_meet_threshold
 
 
-
 #### ----------------------------------------------------------------------------------------------- ####
 
 get_create_features_output = CTVsuggest:::get_create_features(TEST = TEST, limiting_n_observations = limiting_n_observations)
@@ -88,11 +87,16 @@ for(i in RWsearch::tvdb_vec(input_CRAN_data$tvdb)){
 
 #### ----------------------------------------------------------------------------------------------- ####
 #### Finding packages that have no assigned Task View that meet the decided download threshold ####
+# Packages that are assigned to a Task View
+task_view_packages = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))
+task_view_packages = unique(task_view_packages)
 # Vector of package names that do not have a Task View
-no_tsk_view_packages = igraph::V(get_create_features_output$pac_network_igraph)$name[!(igraph::V(get_create_features_output$pac_network_igraph)$name %in% Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb)))]
+no_tsk_view_packages = get_create_features_output$final_package_names[!get_create_features_output$final_package_names %in% task_view_packages]
+no_tsk_view_packages = unique(no_tsk_view_packages)
 # Remove R package, as it cannot be queried with other packages with cran_downloads
+if(length(which(no_tsk_view_packages == "R") > 0)){
 no_tsk_view_packages = no_tsk_view_packages[-which(no_tsk_view_packages == "R")]
-
+}
 
 
 # Can not query too many at same time, so need to chunk
@@ -105,6 +109,20 @@ no_tsk_view_packages = no_tsk_view_packages[-which(no_tsk_view_packages == "R")]
 chunk_size = 500
 n_chunks = ceiling(length(no_tsk_view_packages)/chunk_size)
 no_tsk_downloads_ls = vector(mode = "list", length = n_chunks)
+
+
+if(n_chunks == 1){
+  i = 1
+  j = 1:length(no_tsk_view_packages)
+
+  no_tsk_downloads <- cranlogs::cran_downloads(from = date %m-% months(1), to = date, packages = no_tsk_view_packages[j])
+
+  no_tsk_downloads_ls[[i]] = no_tsk_downloads %>%
+    dplyr::group_by(package) %>%
+    dplyr::summarise(sum = sum(count)) %>%
+    dplyr::filter(sum > 2500)
+
+} else {
 
 # first (n_chunks - 1)
 for(i in 1:(n_chunks - 1)){
@@ -129,9 +147,7 @@ no_tsk_downloads_ls[[n_chunks]] = no_tsk_downloads %>%
   dplyr::summarise(sum = sum(count)) %>%
   dplyr::filter(sum > 2500)
 
-# board %>% pin_write(no_tsk_downloads_ls, "no_tsk_downloads_ls", type = "rds")
-
-
+}
 
 # Number of not assigned packages that meet threshold
 #length(unique(rbindlist(no_tsk_downloads_ls)$package))
@@ -147,9 +163,9 @@ no_tsk_downloads_ls[[n_chunks]] = no_tsk_downloads %>%
 no_tsk_pckgs_meet_threshold = c(data.table::rbindlist(no_tsk_downloads_ls)$package, "R")
 
 
-
-return(list("response_matrix" = response_matrix, "features" = features, "final_package_names" = final_package_names,
-            "no_tsk_pckgs_meet_threshold" = no_tsk_pckgs_meet_threshold, "tvdb" = tvdb, "predicted_probs_for_suggestions" = predicted_probs_for_suggestions))
+return(list("response_matrix" = get_create_features_output$response_matrix, "features" = get_create_features_output$features,
+            "final_package_names" = get_create_features_output$final_package_names,
+            "no_tsk_pckgs_meet_threshold" = no_tsk_pckgs_meet_threshold, "tvdb" = tvdb))
 
 
 }

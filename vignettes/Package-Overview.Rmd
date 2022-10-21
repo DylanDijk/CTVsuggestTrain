@@ -89,6 +89,8 @@ I will now go into more detail into how I constructed features from this data.
 - Each Task View has a page with text describing its scope
   - Example: [Econometrics Task View description](https://cran.r-project.org/web/views/Econometrics.html)
 
+I have extracted the Task View text data from their corresponding markdown files that exist within their GitHub repositories. All of the GitHub repositories can be found in the  [cran-task-views](https://github.com/cran-task-views) GitHub account.
+Using all of the text from the Task View I have created a corpus. Then for each word I calculated the term frequency
 For each package I have combined the title and description text, then I have vectorised this text as well as the Task View text.
 Then for each package I have calculated the cosine similarity between its text vector against all of the Task Views text vectors. 
 
