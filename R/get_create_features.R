@@ -300,8 +300,6 @@ response_matrix
 feature_matrix_all_neighbour_pkgs
 # Text data
 feature_matrix_titles_descriptions_packages_cosine_df
-feature_matrix_titles_descriptions_packages_cosine_df = feature_matrix_titles_descriptions_packages_cosine_df[input_CRAN_data$all_CRAN_pks,]
-feature_matrix_titles_descriptions_packages_cosine_df
 # Author collaborators
 feature_matrix_author_task_views
 
