@@ -4,7 +4,12 @@
 \alias{Train_model}
 \title{Title}
 \usage{
-Train_model(TEST = FALSE, limiting_n_observations = 100, save = FALSE)
+Train_model(
+  TEST = FALSE,
+  limiting_n_observations = 100,
+  save = FALSE,
+  path = "OUTPUT/"
+)
 }
 \arguments{
 \item{save}{logical. If TRUE then saves objects that are returned by this function to disk.}
