@@ -129,7 +129,7 @@ if(save){
     dir.create(file.path(path))
   }
 
-save(model, file = file.path(path, "predicted_probs_for_suggestions.rda"))
+save(model, file = file.path(path, "model.rda"))
 save(predicted_probs_for_suggestions, file = file.path(path, "predicted_probs_for_suggestions.rda"))
 save(model_accuracy, file = file.path(path, "model_accuracy.rda"))
 message("Objects: model, predicted_probs_for_suggestions and model_accuracy have been saved to the path ", file.path(path))
