@@ -9,9 +9,6 @@ get_CRAN_logs(TEST = FALSE, limiting_n_observations = 100)
 \arguments{
 \item{limiting_n_observations}{}
 }
-\value{
-
-}
 \description{
 Title
 }

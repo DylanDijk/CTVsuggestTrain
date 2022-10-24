@@ -11,9 +11,6 @@ get_create_features(TEST = FALSE, limiting_n_observations = 100)
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 }
-\value{
-
-}
 \description{
 Title
 }

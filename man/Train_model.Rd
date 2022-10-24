@@ -9,9 +9,6 @@ Train_model(TEST = FALSE, limiting_n_observations = 100, save = FALSE)
 \arguments{
 \item{save}{logical. If TRUE then saves objects that are returned by this function to disk.}
 }
-\value{
-
-}
 \description{
 Title
 }
