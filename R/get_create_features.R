@@ -27,7 +27,7 @@ get_create_features = function(TEST = FALSE, limiting_n_observations = 100){
 
 #### ----------------------------------------------------------------------------------------------- ####
 
-get_NLP_output = CTVsuggest:::get_NLP(TEST = TEST, limiting_n_observations = limiting_n_observations)
+get_NLP_output = CTVsuggestTrain:::get_NLP(TEST = TEST, limiting_n_observations = limiting_n_observations)
 input_CRAN_data = get_NLP_output$input_CRAN_data
 tvdb = input_CRAN_data$tvdb
 

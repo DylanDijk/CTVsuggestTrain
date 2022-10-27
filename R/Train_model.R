@@ -26,7 +26,7 @@ Train_model = function(TEST = FALSE, limiting_n_observations = 100, save = FALSE
 
 #### ----------------------------------------------------------------------------------------------- ####
 
-get_CRAN_logs_output = CTVsuggest:::get_CRAN_logs(TEST = TEST, limiting_n_observations = limiting_n_observations)
+get_CRAN_logs_output = CTVsuggestTrain:::get_CRAN_logs(TEST = TEST, limiting_n_observations = limiting_n_observations)
 
 #### ----------------------------------------------------------------------------------------------- ####
 

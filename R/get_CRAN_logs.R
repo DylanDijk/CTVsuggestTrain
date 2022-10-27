@@ -24,7 +24,7 @@ get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100){
 
 #### ----------------------------------------------------------------------------------------------- ####
 
-get_create_features_output = CTVsuggest:::get_create_features(TEST = TEST, limiting_n_observations = limiting_n_observations)
+get_create_features_output = CTVsuggestTrain:::get_create_features(TEST = TEST, limiting_n_observations = limiting_n_observations)
 input_CRAN_data = get_create_features_output$input_CRAN_data
 tvdb = input_CRAN_data$tvdb
 

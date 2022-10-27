@@ -25,7 +25,7 @@ get_data = function(TEST = FALSE, limiting_n_observations = 100){
 
   message("Downloading package metadat from CRAN package repository")
 
-  tvdb = CTVsuggest:::download_taskview_data()
+  tvdb = CTVsuggestTrain:::download_taskview_data()
 
   # CRAN snapshot
   ## Data extracted from CRAN package repository

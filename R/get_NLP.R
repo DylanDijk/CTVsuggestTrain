@@ -31,7 +31,7 @@ get_NLP = function(TEST = FALSE, limiting_n_observations = 100){
 #### ----------------------------------------------------------------------------------------------- ####
 
 # Get required objects from CTVsuggest:::get_data()
-  input_CRAN_data = CTVsuggest:::get_data(TEST = TEST, limiting_n_observations = limiting_n_observations)
+  input_CRAN_data = CTVsuggestTrain:::get_data(TEST = TEST, limiting_n_observations = limiting_n_observations)
 
   # This script creates the NLP features for the model using Task View text and Package description text.
   message("Creating the NLP features for the model using Task View text and Package description text")
