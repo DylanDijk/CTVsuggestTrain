@@ -17,6 +17,7 @@ Imports:
     cranlogs,
     cranly,
     dplyr,
+    glmnet,
     lsa,
     pbapply,
     RWsearch,

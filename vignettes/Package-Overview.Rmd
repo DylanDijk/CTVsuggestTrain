@@ -136,6 +136,12 @@ prediction is one of its assigned Task Views.
 
 ## CTVsuggestTrain
 
+First install the **CTVsuggestTrain** package:
+```{r, warning = FALSE, message = FALSE, results='hide'}
+library(devtools)
+install_github("DylanDijk/CTVsuggestTrain")
+```
+
 As mentioned above, the training of the models is performed with the `CTVsuggestTrain::Train_model()` function. This function uses four internal functions of the CTVsuggestTrain package which are run in order: 
 
 - `get_data()`
