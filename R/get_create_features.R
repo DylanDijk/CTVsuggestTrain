@@ -293,6 +293,14 @@ feature_matrix_titles_descriptions_packages_cosine_df = as.data.frame(get_NLP_ou
 feature_matrix_titles_descriptions_packages_cosine_df = t(feature_matrix_titles_descriptions_packages_cosine_df)
 
 
+
+# Removing duplicated rows
+response_matrix                                       = response_matrix[!duplicated(row.names(response_matrix)),]
+feature_matrix_all_neighbour_pkgs                     = feature_matrix_all_neighbour_pkgs[!duplicated(row.names(feature_matrix_all_neighbour_pkgs)),]
+feature_matrix_titles_descriptions_packages_cosine_df = feature_matrix_titles_descriptions_packages_cosine_df[!duplicated(row.names(feature_matrix_titles_descriptions_packages_cosine_df)),]
+feature_matrix_author_task_views                      = feature_matrix_author_task_views[!duplicated(row.names(feature_matrix_author_task_views)),]
+
+
 # Making sure all feature matrices and response matrix have correct rownames in correct order
 # Response matrix
 response_matrix
@@ -324,6 +332,7 @@ response_matrix                                       = response_matrix[!duplica
 feature_matrix_all_neighbour_pkgs                     = feature_matrix_all_neighbour_pkgs[!duplicated(row.names(feature_matrix_all_neighbour_pkgs)),]
 feature_matrix_titles_descriptions_packages_cosine_df = feature_matrix_titles_descriptions_packages_cosine_df[!duplicated(row.names(feature_matrix_titles_descriptions_packages_cosine_df)),]
 feature_matrix_author_task_views                      = feature_matrix_author_task_views[!duplicated(row.names(feature_matrix_author_task_views)),]
+
 
 features = merge(feature_matrix_titles_descriptions_packages_cosine_df, feature_matrix_all_neighbour_pkgs_df, by="row.names", all.x = TRUE, )
 rownames(features) = features[,"Row.names"]
