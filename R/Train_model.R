@@ -106,7 +106,7 @@ model_accuracy = 100*model_accuracy
 
 
 #### ----------------------------------------------------------------------------------------------- ####
-##### Predicted probabilities form model ######
+##### Predicted probabilities from model ######
 # Vector of packages that are not assigned a Task View that do not meet threshold
 # Will then get classification probabilities for these packages using the trained model
 pkgs_for_suggestions = get_CRAN_logs_output$final_package_names[!(get_CRAN_logs_output$final_package_names %in% get_CRAN_logs_output$no_tsk_pckgs_meet_threshold) & (get_CRAN_logs_output$response_matrix[,"none"] == 1)]
