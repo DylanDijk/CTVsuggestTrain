@@ -49,14 +49,20 @@ CTVsuggest(n = 5, taskview = "NaturalLanguageProcessing")
 
 
 ## The Package Workflow
+Alongside the **CTVsuggest** package there is the **CTVsuggestTrain** package that contains code which executes the training of the model.
 
-Currently, I have a script that executes the model building with the most up to date data. The script trains the model, and then I push the predicted classification probabilities for each package to a gitHub repo. 
+The current workflow is that I run the `CTVsuggestTrain::Train_model()` function, and then use the trained model to get predicted classification probabilities for packages. I find the classification probabilities for packages that are not assigned a Task View and that does not meet a monthly download threshold. 
 
-I now describe how the model is constructed.
+I then store predicted probabilities on the [CTVsuggestTrain](https://github.com/DylanDijk/CTVsuggestTrain) GitHub repo, the **CTVsuggest** package can then read this to output suggestions for different Task Views.
 
 
 
 ## The Model
+
+I now give a high level view of how the model is trained.
+
+Look at the CTVsuggestTrain section or the CTVsuggestTrain package documentation for a more detailed description.
+
 
 ### Multinomial Logistic Regression
 The model aims to give a Task View suggestion after being giving some set of features of an unassigned package. There are packages that are assigned to multiple Task Views, but I have looked at classifying packages to a single Task View. Therefore, I have set this up as a multi-class classification problem, compared to a multi-label problem. 
@@ -112,7 +118,14 @@ For each package I look at all of the other packages created by the authors of t
 ### Predictions
 
 
-## Other Functions
+## CTVsuggestTrain
+
+As mentioned above, the training of the models is performed with the `CTVsuggestTrain::Train_model()` function. This function uses four internal functions of the CTVsuggestTrain package which are run in order: 
+
+- `get_data()`
+- `get_NLP()`
+- `get_create_features()`
+- `get_CRAN_logs`.
 
 
 <!-- Due to the huge number of packages -->
