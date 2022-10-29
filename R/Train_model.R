@@ -83,7 +83,7 @@ train_res_sparse <- Matrix::sparse.model.matrix(~0 + ., as.data.frame(train_res)
 
 message("Training model")
 set.seed(3)
-model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family = "multinomial", alpha = 1, trace.it = 1,  maxit = 1e+06)
+model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family = "multinomial", alpha = 1, trace.it = 1,  maxit = 1e+07)
 #### ----------------------------------------------------------------------------------------------- ####
 
 
