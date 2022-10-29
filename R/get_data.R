@@ -29,7 +29,7 @@
 #' CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
 #' }
 get_data = function(TEST = FALSE, limiting_n_observations = 100,
-                    save_get_data = FALSE, get_data_save_path = "tests/testthat/fixtures/get_data_output"){
+                    save_output = FALSE, save_path = "tests/testthat/fixtures/get_data_output"){
 
   message("Downloading package metadat from CRAN package repository")
 
@@ -62,29 +62,14 @@ if(TEST){
 
 
   # Creating object to be returned. Which is a list made up of objects needed upstream
-  list_to_return_get_data = list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data, "tvdb" = tvdb, "TEST" = TEST)
-
+  list_to_return = list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data, "tvdb" = tvdb, "TEST" = TEST)
   # Assigning attributes to object that will be returned
-  attr(list_to_return_get_data, "date") = Sys.Date()
-  attr(list_to_return_get_data, "TEST") = TEST
-  if(TEST){
-    attr(list_to_return_get_data, "limiting_n_observations") = limiting_n_observations
-  }
+  attr(list_to_return, "date") = Sys.Date()
+  attr(list_to_return, "TEST") = TEST
 
 
-  # If save_get_data set to TRUE then the object is saved to get_data_save_path
-  # The default path is in the test directory, as I want to save objects so that they
-  # do not have to be recreated every time in a test.
-  if(save_get_data){
-
-    saveRDS(list_to_return_get_data, file = file.path(get_data_save_path, "get_data_output.rds"))
-    message("Objects:", paste(names(list_to_return_get_data), collapse = ", "), " have been saved to the path: ~/", file.path(get_data_save_path))
-
-  }else{
-
-    return(list_to_return_get_data)
-
-  }
+  file_name = "get_data_output.rds"
+  CTVsuggestTrain:::save_or_return_objects(list_to_return)
 
 }
 
