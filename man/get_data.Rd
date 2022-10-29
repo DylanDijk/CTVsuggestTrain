@@ -4,7 +4,12 @@
 \alias{get_data}
 \title{Gets data for model training. This function is run inside \code{CTVsuggest:::get_NLP()}.}
 \usage{
-get_data(TEST = FALSE, limiting_n_observations = 100)
+get_data(
+  TEST = FALSE,
+  limiting_n_observations = 100,
+  save_get_data = FALSE,
+  get_data_save_path = "tests/testthat/fixtures/get_data_output"
+)
 }
 \arguments{
 \item{TEST}{logical. Default is \code{\link{FALSE}}.. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.

@@ -1,11 +1,18 @@
 
 #' Gets data for model training. This function is run inside `CTVsuggest:::get_NLP()`.
 #'
-#' @param TEST logical. Default is [`FALSE`].. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+#' @param TEST logical. Default is [`FALSE`]. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 #'
 #' More precisely, if TRUE a random selection of rows from `CRAN_data` is selected, where the number of rows
 #' is given by `limiting_n_observations`.
 #' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
+#'
+#' @param save_get_data logical. Default is [`FALSE`]. If TRUE, then the list that is returned is saved to the path set by
+#' `get_data_save_path`.
+#'
+#' @param get_data_save_path string. Sets the path where the list created by the function will be saved,
+#' which is when `save_get_data` is set to TRUE
+#'
 #'
 #' @return Data objects required for rest of scripts involved in training the model
 #'\itemize{
@@ -21,7 +28,8 @@
 #' \donttest{
 #' CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
 #' }
-get_data = function(TEST = FALSE, limiting_n_observations = 100){
+get_data = function(TEST = FALSE, limiting_n_observations = 100,
+                    save_get_data = FALSE, get_data_save_path = "tests/testthat/fixtures/get_data_output"){
 
   message("Downloading package metadat from CRAN package repository")
 
@@ -52,7 +60,31 @@ if(TEST){
   CRAN_cranly_data = cranly::clean_CRAN_db(packages_db = CRAN_data)
 
 
-  return(list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data, "tvdb" = tvdb, "TEST" = TEST))
+
+  # Creating object to be returned. Which is a list made up of objects needed upstream
+  list_to_return_get_data = list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data, "tvdb" = tvdb, "TEST" = TEST)
+
+  # Assigning attributes to object that will be returned
+  attr(list_to_return_get_data, "date") = Sys.Date()
+  attr(list_to_return_get_data, "TEST") = TEST
+  if(TEST){
+    attr(list_to_return_get_data, "limiting_n_observations") = limiting_n_observations
+  }
+
+
+  # If save_get_data set to TRUE then the object is saved to get_data_save_path
+  # The default path is in the test directory, as I want to save objects so that they
+  # do not have to be recreated every time in a test.
+  if(save_get_data){
+
+    saveRDS(list_to_return_get_data, file = file.path(get_data_save_path, "get_data_output.rds"))
+    message("Objects:", paste(names(list_to_return_get_data), collapse = ", "), " have been saved to the path: ~/", file.path(get_data_save_path))
+
+  }else{
+
+    return(list_to_return_get_data)
+
+  }
 
 }
 
