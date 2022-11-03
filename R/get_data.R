@@ -28,8 +28,11 @@
 #' \donttest{
 #' CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
 #' }
-get_data = function(TEST = FALSE, limiting_n_observations = 100,
-                    save_output = FALSE, save_path = "tests/testthat/fixtures/get_data_output"){
+get_data = function(TEST = FALSE,
+                    # limiting_n_observations = 100,
+                    #save_output = FALSE, save_path = "tests/testthat/fixtures/get_data_output",
+                    ...
+                    ){
 
   message("Downloading package metadat from CRAN package repository")
 
@@ -68,8 +71,7 @@ if(TEST){
   attr(list_to_return, "TEST") = TEST
 
 
-  file_name = "get_data_output.rds"
-  CTVsuggestTrain:::save_or_return_objects(list_to_return)
+  CTVsuggestTrain:::save_or_return_objects(list_to_return = list_to_return, ...)
 
 }
 

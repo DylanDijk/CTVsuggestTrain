@@ -6,9 +6,9 @@
 #' @return
 #'
 #' @examples
-save_or_return_objects = function(list_to_return){
+save_or_return_objects = function(list_to_return, limiting_n_observations, save_output, save_path){
 
-  if(TEST){
+  if(attributes(list_to_return)$TEST){
     attr(list_to_return, "limiting_n_observations") = limiting_n_observations
   }
 
