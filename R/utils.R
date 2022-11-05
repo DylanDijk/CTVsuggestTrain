@@ -6,7 +6,12 @@
 #' @return
 #'
 #' @examples
-save_or_return_objects = function(list_to_return, limiting_n_observations, save_output, save_path, file_name){
+save_or_return_objects = function(TEST, list_to_return, limiting_n_observations, save_output, save_path, file_name){
+
+  # Assigning attributes to object that will be returned
+  attr(list_to_return, "date") = Sys.Date()
+  attr(list_to_return, "TEST") = TEST
+
 
   if(attributes(list_to_return)$TEST){
     attr(list_to_return, "limiting_n_observations") = limiting_n_observations

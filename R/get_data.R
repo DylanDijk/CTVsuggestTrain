@@ -68,12 +68,8 @@ if(TEST){
   ############ Creating and Returning FINAL object ############
   # Creating object to be returned. Which is a list made up of objects needed upstream
   list_to_return = list("CRAN_data" = CRAN_data, "all_CRAN_pks" = all_CRAN_pks, "CRAN_cranly_data" = CRAN_cranly_data, "tvdb" = tvdb, "TEST" = TEST)
-  # Assigning attributes to object that will be returned
-  attr(list_to_return, "date") = Sys.Date()
-  attr(list_to_return, "TEST") = TEST
 
-
-  CTVsuggestTrain:::save_or_return_objects(list_to_return = list_to_return, limiting_n_observations = limiting_n_observations,
+  CTVsuggestTrain:::save_or_return_objects(TEST = TEST, list_to_return = list_to_return, limiting_n_observations = limiting_n_observations,
                                            save_output = save_output, save_path = save_path, file_name = file_name)
 
 }
