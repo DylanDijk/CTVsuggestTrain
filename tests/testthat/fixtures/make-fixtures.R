@@ -23,3 +23,9 @@ get_create_features(get_input_stored = TRUE, save_output = TRUE,
                     save_path = "tests/testthat/fixtures/get_create_features_output", file_name = "get_create_features_output_test.rds")
 
 
+# get_CRAN_logs
+get_CRAN_logs(get_input_stored = TRUE, save_output = TRUE)
+## get_CRAN_logs TEST
+get_CRAN_logs(get_input_stored = TRUE, save_output = TRUE,
+              get_input_path = "tests/testthat/fixtures/get_create_features_output/get_create_features_output_test.rds",
+              save_path = "tests/testthat/fixtures/get_CRAN_logs_output", file_name = "get_CRAN_logs_output_test.rds")

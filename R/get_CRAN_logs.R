@@ -10,7 +10,10 @@
 #'
 #'
 #' @examples
-get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100){
+get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100,
+                         get_input_stored = FALSE, get_input_path = "tests/testthat/fixtures/get_create_features_output/get_create_features_output.rds",
+                         save_output = FALSE, save_path = "tests/testthat/fixtures/get_CRAN_logs_output",
+                         file_name = "get_CRAN_logs_output.rds"){
 
 
 
@@ -22,13 +25,29 @@ get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100){
 # no_tsk_pckgs_meet_threshold
 
 
-#### ----------------------------------------------------------------------------------------------- ####
-
-get_create_features_output = CTVsuggestTrain:::get_create_features(TEST = TEST, limiting_n_observations = limiting_n_observations)
-input_CRAN_data = get_create_features_output$input_CRAN_data
-tvdb = input_CRAN_data$tvdb
 
 #### ----------------------------------------------------------------------------------------------- ####
+# Getting data
+# For testing may want to use prestored input object
+if(get_input_stored){
+  get_create_features_output = readRDS(get_input_path)
+  input_CRAN_data = get_create_features_output$input_CRAN_data
+  tvdb = input_CRAN_data$tvdb
+  TEST = attributes(input_CRAN_data)$TEST
+  limiting_n_observations = attributes(input_CRAN_data)$limiting_n_observations
+
+}else{
+
+  # Get required objects from CTVsuggest:::get_create_features()
+  get_create_features_output = CTVsuggestTrain:::get_create_features(TEST = TEST, limiting_n_observations = limiting_n_observations)
+  input_CRAN_data = get_create_features_output$input_CRAN_data
+  tvdb = input_CRAN_data$tvdb
+}
+
+
+#### ----------------------------------------------------------------------------------------------- ####
+
+
 
 
 
@@ -163,9 +182,14 @@ no_tsk_downloads_ls[[n_chunks]] = no_tsk_downloads %>%
 no_tsk_pckgs_meet_threshold = c(data.table::rbindlist(no_tsk_downloads_ls)$package, "R")
 
 
-return(list("response_matrix" = get_create_features_output$response_matrix, "features" = get_create_features_output$features,
+list_to_return = list("response_matrix" = get_create_features_output$response_matrix, "features" = get_create_features_output$features,
             "final_package_names" = get_create_features_output$final_package_names,
-            "no_tsk_pckgs_meet_threshold" = no_tsk_pckgs_meet_threshold, "tvdb" = tvdb))
+            "no_tsk_pckgs_meet_threshold" = no_tsk_pckgs_meet_threshold, "tvdb" = tvdb)
+
+
+
+CTVsuggestTrain:::save_or_return_objects(TEST = TEST, list_to_return = list_to_return, limiting_n_observations = limiting_n_observations,
+                                         save_output = save_output, save_path = save_path, file_name = file_name)
 
 
 }
