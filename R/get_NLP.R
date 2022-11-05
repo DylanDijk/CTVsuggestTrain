@@ -31,7 +31,7 @@ get_NLP = function(TEST = FALSE, limiting_n_observations = 100,
 
 
 #### ----------------------------------------------------------------------------------------------- ####
-
+# Getting data
 # For testing may want to use prestored input object
   if(get_input_stored){
     input_CRAN_data = readRDS(get_input_path)

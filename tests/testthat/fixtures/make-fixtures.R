@@ -15,3 +15,11 @@ get_NLP(get_input_stored = TRUE, save_output = TRUE,
         save_path = "tests/testthat/fixtures/get_NLP_output", file_name = "get_NLP_output_test.rds")
 
 
+# get_create_features
+get_create_features(get_input_stored = TRUE, save_output = TRUE)
+## get_create_features TEST
+get_create_features(get_input_stored = TRUE, save_output = TRUE,
+                    get_input_path = "tests/testthat/fixtures/get_NLP_output/get_NLP_output_test.rds",
+                    save_path = "tests/testthat/fixtures/get_create_features_output", file_name = "get_create_features_output_test.rds")
+
+
