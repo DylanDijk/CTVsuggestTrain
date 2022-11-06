@@ -29,3 +29,9 @@ get_CRAN_logs(get_input_stored = TRUE, save_output = TRUE)
 get_CRAN_logs(get_input_stored = TRUE, save_output = TRUE,
               get_input_path = "tests/testthat/fixtures/get_create_features_output/get_create_features_output_test.rds",
               save_path = "tests/testthat/fixtures/get_CRAN_logs_output", file_name = "get_CRAN_logs_output_test.rds")
+
+
+
+# To train the model using the fixtures we have created and saved here, we run:
+  # This saves the model object and its accuracy in the OUTPUT folder
+Train_model(get_input_stored = TRUE, save = TRUE)
