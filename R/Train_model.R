@@ -24,7 +24,8 @@ Train_model = function(TEST = FALSE, limiting_n_observations = 100,
 ##### Objects Outputted ####
 # predicted_probs_for_suggestions
 
-
+# get_input_stored = TRUE
+# get_input_path = "tests/testthat/fixtures/get_CRAN_logs_output/get_CRAN_logs_output.rds"
 
 
 if(get_input_stored){
@@ -73,8 +74,6 @@ test_feature = labelled_data_features[split1 == 1,]
 #### ----------------------------------------------------------------------------------------------- ####
 
 
-
-
 #### ----------------------------------------------------------------------------------------------- ####
 ##### LASSO #####
 
@@ -92,7 +91,7 @@ train_res_sparse <- Matrix::sparse.model.matrix(~0 + ., as.data.frame(train_res)
 
 message("Training model")
 set.seed(3)
-model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family = "multinomial", alpha = 1, trace.it = 1,  maxit = 1e+07)
+model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family = "multinomial", alpha = 1)
 #### ----------------------------------------------------------------------------------------------- ####
 
 
