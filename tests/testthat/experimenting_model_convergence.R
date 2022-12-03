@@ -70,7 +70,7 @@ train_res_sparse <- Matrix::sparse.model.matrix(~0 + ., as.data.frame(train_res)
 message("Training model")
 set.seed(3)
 model_multinom_cv = glmnet::cv.glmnet(x = train_sparse[,1:20],  y = train_res, family = "multinomial", alpha = 1, trace.it = 1)
-model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family = "multinomial", alpha = 1, trace.it = 1)
+model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family = "multinomial", alpha = 1, trace.it = 1, nlambda = 200)
 #### ----------------------------------------------------------------------------------------------- ####
 
 
@@ -79,7 +79,6 @@ model_multinom_cv = glmnet::cv.glmnet(x = train_sparse,  y = train_res, family =
 #### Accuracy ####
 
 model = model_multinom_cv
-test_feature = test_feature[,1:20]
 predict_class = predict(model, newx = cbind(rep(1, nrow(test_feature)),as.matrix(test_feature)), s = "lambda.min",  type = "class")
 # Getting accuracy of model after applying lasso with min Lambda
 predict_class = factor(predict_class[,1], levels = c(RWsearch::tvdb_vec(get_CRAN_logs_output$tvdb), "none"))
@@ -88,7 +87,7 @@ predict_class = factor(predict_class[,1], levels = c(RWsearch::tvdb_vec(get_CRAN
 
 model_accuracy = mean(test_res[cbind(1:nrow(test_res), predict_class)], na.rm = T)
 model_accuracy = 100*model_accuracy
-
+model_accuracy
 # apply(test_res[which(test_res[cbind(1:nrow(test_res), predict_class)] == 0),],2,sum)
 #### ----------------------------------------------------------------------------------------------- ####
 
