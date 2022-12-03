@@ -137,6 +137,11 @@ if(save){
     dir.create(file.path(path))
   }
 
+attr(model, "date") = Sys.Date()
+attr(predicted_probs_for_suggestions, "date") = Sys.Date()
+attr(model_accuracy, "date") = Sys.Date()
+
+
 save(model, file = file.path(path, "model.rda"))
 save(predicted_probs_for_suggestions, file = file.path(path, "predicted_probs_for_suggestions.rda"))
 save(model_accuracy, file = file.path(path, "model_accuracy.rda"))

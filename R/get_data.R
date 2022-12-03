@@ -34,7 +34,7 @@ get_data = function(TEST = FALSE,
                     file_name){
 
 
-  message("Downloading package metadat from CRAN package repository")
+  message("Downloading package metadata from CRAN package repository")
 
   tvdb = CTVsuggestTrain:::download_taskview_data()
 
