@@ -320,7 +320,7 @@ get_NLP = function(TEST = FALSE, limiting_n_observations = 100,
   # If save_get_NLP set to TRUE then the object is saved to get_NLP_save_path
   # The default path is in the test directory, as I want to save objects so that they
   # do not have to be recreated every time in a test.
-  if(save_get_NLP){
+  if(save_NLP){
 
     saveRDS(list_to_return_get_NLP, file = file.path(get_NLP_save_path, "get_NLP_output.rds"))
     message("Objects:", paste(names(list_to_return_get_NLP), collapse = ", "), " have been saved to the path: ~/", file.path(get_NLP_save_path))
