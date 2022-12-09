@@ -4,7 +4,15 @@
 \alias{get_NLP}
 \title{Creates the NLP features for the model using Task View text and Package description text}
 \usage{
-get_NLP(TEST = FALSE, limiting_n_observations = 100)
+get_NLP(
+  TEST = FALSE,
+  limiting_n_observations = 100,
+  get_input_stored = FALSE,
+  get_input_path = "tests/testthat/fixtures/get_data_output/get_data_output.rds",
+  save_output = FALSE,
+  save_path = "tests/testthat/fixtures/get_NLP_output",
+  file_name
+)
 }
 \arguments{
 \item{TEST}{Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.}

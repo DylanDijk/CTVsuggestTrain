@@ -4,7 +4,15 @@
 \alias{get_create_features}
 \title{Title}
 \usage{
-get_create_features(TEST = FALSE, limiting_n_observations = 100)
+get_create_features(
+  TEST = FALSE,
+  limiting_n_observations = 100,
+  get_input_stored = FALSE,
+  get_input_path = "tests/testthat/fixtures/get_NLP_output/get_NLP_output.rds",
+  save_output = FALSE,
+  save_path = "tests/testthat/fixtures/get_create_features_output",
+  file_name = "get_create_features_output.rds"
+)
 }
 \arguments{
 \item{TEST}{Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.}

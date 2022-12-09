@@ -1,10 +1,10 @@
 Package: CTVsuggestTrain
-Title: What the Package Does (One Line, Title Case)
+Title: Builds Recommendation Model for CTVsuggest Package
 Version: 0.0.0.9000
 Authors@R: 
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
+Description: Contains functions to construct a model which aims to classify packages into Task Views. The predictions of the model are outputted by the CTVsuggest package.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

@@ -137,7 +137,7 @@ prediction is one of its assigned Task Views.
 ## CTVsuggestTrain
 
 First install the **CTVsuggestTrain** package:
-```{r, warning = FALSE, message = FALSE, results='hide'}
+```{r, warning = FALSE, message = FALSE, results='hide', eval=FALSE}
 library(devtools)
 install_github("DylanDijk/CTVsuggestTrain")
 ```

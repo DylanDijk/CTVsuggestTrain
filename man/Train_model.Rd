@@ -7,6 +7,9 @@
 Train_model(
   TEST = FALSE,
   limiting_n_observations = 100,
+  get_input_stored = FALSE,
+  get_input_path =
+    "tests/testthat/fixtures/get_CRAN_logs_output/get_CRAN_logs_output.rds",
   save = FALSE,
   path = "OUTPUT/"
 )
