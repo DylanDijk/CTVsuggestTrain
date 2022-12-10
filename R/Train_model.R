@@ -1,13 +1,19 @@
 #' Title
 #'
-#' @param TEST
-#' @param limiting_n_observations
-#' @param save logical. If TRUE then saves objects that are returned by this function to disk.
+#' @param TEST Logical. If FALSE model is trained using all available CRAN data, otherwise it is restricted to a subset.
+#' @param limiting_n_observations Integer. Decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
+#' @param get_input_stored Integer. Decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
+#' @param get_input_path Integer. Decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
+#' @param save Logical. If [`TRUE`] then saves objects that are returned by this function to disk.
+#' @param path Logical. If [`TRUE`] then saves objects that are returned by this function to disk.
 #'
 #' @return
 #' @export
 #'
 #' @examples
+#' \dontrun{
+#' Train_model()
+#' }
 Train_model = function(TEST = FALSE, limiting_n_observations = 100,
                        get_input_stored = FALSE, get_input_path = "tests/testthat/fixtures/get_CRAN_logs_output/get_CRAN_logs_output.rds",
                        save = FALSE, path = "OUTPUT/"){

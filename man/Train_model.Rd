@@ -15,8 +15,21 @@ Train_model(
 )
 }
 \arguments{
-\item{save}{logical. If TRUE then saves objects that are returned by this function to disk.}
+\item{TEST}{Logical. If FALSE model is trained using all available CRAN data, otherwise it is restricted to a subset.}
+
+\item{limiting_n_observations}{Integer. Decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+
+\item{get_input_stored}{Integer. Decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+
+\item{get_input_path}{Integer. Decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+
+\item{save}{Logical. If \code{\link{TRUE}} then saves objects that are returned by this function to disk.}
+
+\item{path}{Logical. If \code{\link{TRUE}} then saves objects that are returned by this function to disk.}
 }
 \description{
 Title
+}
+\examples{
+Train_model()
 }

@@ -14,7 +14,20 @@ save_or_return_objects(
 )
 }
 \arguments{
-\item{list_to_return}{}
+\item{TEST}{Logical. If TRUE then the objects it is saving have been generated from a test.}
+
+\item{list_to_return}{List. List of objects that you want to be saved.}
+
+\item{limiting_n_observations}{Integer. If objects are generated from a TEST then, \code{limiting_n_observations}.}
+
+\item{save_output}{Logical. Determines whether \code{list_to_return} is saved to disk or return into the current R environment.}
+
+\item{save_path}{String. Path where \code{list_to_return} will be saved.}
+
+\item{file_name}{String. File name of saved object.}
+}
+\value{
+The function saves or returns the \code{list_to_return} list, depending on value of \code{save_output}.
 }
 \description{
 Helper function that returns or saves objects created by functions in this package.

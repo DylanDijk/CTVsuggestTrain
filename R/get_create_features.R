@@ -1,12 +1,30 @@
-#' Title
+#' Creates a set of features for each package, using the data that has been extracted from CRAN.
 #'
-#' @param TEST Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.
+#' In particular this function returns a set of features, and a response matrix for all packages whose data has been extracted.
+#' A subset of these are then used for model training and testing. And the features of the packages are required to generate model predictions, using the trained model.
+#'
+#' @param TEST logical. Default is [`FALSE`]. If [`TRUE`], then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+#'
+#' More precisely, if [`TRUE`] a random selection of rows from `CRAN_data` is selected, where the number of rows
+#' is given by `limiting_n_observations`.
+#'
 #' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
+#'
+#'
+#' @param get_input_stored logical. If [`TRUE`] then the function uses pre saved data as input, otherwise it runs the `CTVsuggestTrain `internal [get_NLP()] function.
+#' @param get_input_path string. If `get_input_stored` is set to [`TRUE`], `get_input_path` gives the path loaction of the pre saved data.
+#'
+#'
+#'
+#' @param save_output logical. Default is [`FALSE`]. If [`TRUE`], then the list that is returned is saved to the path set by
+#' `save_path`.
+#' @param save_path string. Sets the path where the list created by the function will be saved,
+#' which is when `save_output` is set to [`TRUE`]
+#' @param file_name string. Sets the file name for the saved object.
 #'
 #' @return
 #'
-#'
-#' @examples
+
 get_create_features = function(TEST = FALSE, limiting_n_observations = 100,
                                get_input_stored = FALSE, get_input_path = "tests/testthat/fixtures/get_NLP_output/get_NLP_output.rds",
                                save_output = FALSE, save_path = "tests/testthat/fixtures/get_create_features_output",

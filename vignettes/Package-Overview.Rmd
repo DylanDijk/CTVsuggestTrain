@@ -82,7 +82,7 @@ I have used three different types of data to create the features for this model:
 - Package dependencies. $n + 1$ features
 - Other Packages developed by the Authors. $n + 1$ features
 
-I have given the number of features constryucted from each data type, where $n$ denotes the number of Task Views. 
+I have given the number of features constructed from each data type, where $n$ denotes the number of Task Views. 
 
 I will now go into more detail into how I constructed features from this data.
 

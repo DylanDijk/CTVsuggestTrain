@@ -1,15 +1,33 @@
-#' Title
+#' Calculates a monthly package download threshold.
 #'
-#' @param TEST
-#' @param limiting_n_observations
+#' Looks at the monthly downloads of packages that are assigned a Task View.
+#' Then uses this data to select a  monthly package download threshold to decide which packages, that are not assigned a Task View, will be used in model training.
+#'
+#' @param TEST logical. Default is [`FALSE`]. If [`TRUE`], then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+#'
+#' More precisely, if [`TRUE`] a random selection of rows from `CRAN_data` is selected, where the number of rows
+#' is given by `limiting_n_observations`.
+#'
+#' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
+#'
+#'
+#' @param get_input_stored logical. If [`TRUE`] then the function uses pre saved data as input, otherwise it runs the `CTVsuggestTrain `internal [get_create_features()] function.
+#' @param get_input_path string. If `get_input_stored` is set to [`TRUE`], `get_input_path` gives the path loaction of the pre saved data.
+#'
+#'
+#'
+#' @param save_output logical. Default is [`FALSE`]. If [`TRUE`], then the list that is returned is saved to the path set by
+#' `save_path`.
+#' @param save_path string. Sets the path where the list created by the function will be saved,
+#' which is when `save_output` is set to [`TRUE`]
+#' @param file_name string. Sets the file name for the saved object.
 #'
 #' @return
 #'
 #' @importFrom lubridate %m-%
 #' @importFrom magrittr %>%
 #'
-#'
-#' @examples
+
 get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100,
                          get_input_stored = FALSE, get_input_path = "tests/testthat/fixtures/get_create_features_output/get_create_features_output.rds",
                          save_output = FALSE, save_path = "tests/testthat/fixtures/get_CRAN_logs_output",

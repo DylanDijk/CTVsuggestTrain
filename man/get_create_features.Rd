@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_create_features.R
 \name{get_create_features}
 \alias{get_create_features}
-\title{Title}
+\title{Creates a set of features for each package, using the data that has been extracted from CRAN.}
 \usage{
 get_create_features(
   TEST = FALSE,
@@ -15,10 +15,26 @@ get_create_features(
 )
 }
 \arguments{
-\item{TEST}{Takes either TRUE or FALSE, if FALSE it use all available CRAN data otherwise it is restricted to a subset.}
+\item{TEST}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+
+More precisely, if \code{\link{TRUE}} a random selection of rows from \code{CRAN_data} is selected, where the number of rows
+is given by \code{limiting_n_observations}.}
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+
+\item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_NLP]{get_NLP()}} function.}
+
+\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path loaction of the pre saved data.}
+
+\item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
+\code{save_path}.}
+
+\item{save_path}{string. Sets the path where the list created by the function will be saved,
+which is when \code{save_output} is set to \code{\link{TRUE}}}
+
+\item{file_name}{string. Sets the file name for the saved object.}
 }
 \description{
-Title
+In particular this function returns a set of features, and a response matrix for all packages whose data has been extracted.
+A subset of these are then used for model training and testing. And the features of the packages are required to generate model predictions, using the trained model.
 }

@@ -1,11 +1,15 @@
 
 #' Helper function that returns or saves objects created by functions in this package.
 #'
-#' @param list_to_return
+#' @param TEST Logical. If TRUE then the objects it is saving have been generated from a test.
+#' @param list_to_return List. List of objects that you want to be saved.
+#' @param limiting_n_observations Integer. If objects are generated from a TEST then, `limiting_n_observations`.
+#' @param save_output Logical. Determines whether `list_to_return` is saved to disk or return into the current R environment.
+#' @param save_path String. Path where `list_to_return` will be saved.
+#' @param file_name String. File name of saved object.
 #'
-#' @return
+#' @return The function saves or returns the `list_to_return` list, depending on value of `save_output`.
 #'
-#' @examples
 save_or_return_objects = function(TEST, list_to_return, limiting_n_observations, save_output, save_path, file_name){
 
   # Assigning attributes to object that will be returned

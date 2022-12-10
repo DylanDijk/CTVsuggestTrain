@@ -13,18 +13,20 @@ get_data(
 )
 }
 \arguments{
-\item{TEST}{logical. Default is \code{\link{FALSE}}. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+\item{TEST}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 
-More precisely, if TRUE a random selection of rows from \code{CRAN_data} is selected, where the number of rows
+More precisely, if \code{\link{TRUE}} a random selection of rows from \code{CRAN_data} is selected, where the number of rows
 is given by \code{limiting_n_observations}.}
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 
-\item{save_get_data}{logical. Default is \code{\link{FALSE}}. If TRUE, then the list that is returned is saved to the path set by
-\code{get_data_save_path}.}
+\item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
+\code{save_path}.}
 
-\item{get_data_save_path}{string. Sets the path where the list created by the function will be saved,
-which is when \code{save_get_data} is set to TRUE}
+\item{save_path}{string. Sets the path where the list created by the function will be saved,
+which is when \code{save_output} is set to \code{\link{TRUE}}}
+
+\item{file_name}{string. Sets the file name for the saved object.}
 }
 \value{
 Data objects required for rest of scripts involved in training the model

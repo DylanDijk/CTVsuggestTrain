@@ -1,17 +1,19 @@
 
 #' Gets data for model training. This function is run inside `CTVsuggest:::get_NLP()`.
 #'
-#' @param TEST logical. Default is [`FALSE`]. If TRUE, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
+#' @param TEST logical. Default is [`FALSE`]. If [`TRUE`], then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 #'
-#' More precisely, if TRUE a random selection of rows from `CRAN_data` is selected, where the number of rows
+#' More precisely, if [`TRUE`] a random selection of rows from `CRAN_data` is selected, where the number of rows
 #' is given by `limiting_n_observations`.
+#'
 #' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
 #'
-#' @param save_get_data logical. Default is [`FALSE`]. If TRUE, then the list that is returned is saved to the path set by
-#' `get_data_save_path`.
 #'
-#' @param get_data_save_path string. Sets the path where the list created by the function will be saved,
-#' which is when `save_get_data` is set to TRUE
+#' @param save_output logical. Default is [`FALSE`]. If [`TRUE`], then the list that is returned is saved to the path set by
+#' `save_path`.
+#' @param save_path string. Sets the path where the list created by the function will be saved,
+#' which is when `save_output` is set to [`TRUE`]
+#' @param file_name string. Sets the file name for the saved object.
 #'
 #'
 #' @return Data objects required for rest of scripts involved in training the model
@@ -30,8 +32,7 @@
 #' }
 get_data = function(TEST = FALSE,
                     limiting_n_observations = 100,
-                    save_output = FALSE, save_path = "tests/testthat/fixtures/get_data_output",
-                    file_name){
+                    save_output = FALSE, save_path = "tests/testthat/fixtures/get_data_output", file_name){
 
 
   message("Downloading package metadata from CRAN package repository")
