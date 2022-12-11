@@ -35,6 +35,13 @@ which is when \code{save_output} is set to \code{\link{TRUE}}}
 
 \item{file_name}{string. Sets the file name for the saved object.}
 }
+\value{
+Returns
+\itemize{
+\item no_tsk_pckgs_meet_threshold - vector of packages that are not assigned a Task View and meet monthly download threshold.
+\item response_matrix, features, final_package_names, tvdb - are objects created by CTVsuggest:::get_create_features function, that need to be carried forward.
+}
+}
 \description{
 Looks at the monthly downloads of packages that are assigned a Task View.
 Then uses this data to select a  monthly package download threshold to decide which packages, that are not assigned a Task View, will be used in model training.

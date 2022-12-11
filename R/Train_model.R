@@ -7,7 +7,12 @@
 #' @param save Logical. If [`TRUE`] then saves objects that are returned by this function to disk.
 #' @param path Logical. If [`TRUE`] then saves objects that are returned by this function to disk.
 #'
-#' @return
+#' @return Returns
+#'\itemize{
+#'   \item model - Model object
+#'   \item predicted_probs_for_suggestions -
+#'   \item model accuracy - A percentage value which says how accurate the model is on a test set.
+#' }
 #' @export
 #'
 #' @examples

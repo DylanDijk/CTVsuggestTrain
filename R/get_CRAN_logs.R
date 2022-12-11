@@ -22,10 +22,12 @@
 #' which is when `save_output` is set to [`TRUE`]
 #' @param file_name string. Sets the file name for the saved object.
 #'
-#' @return
+#' @return Returns
+#'\itemize{
+#'   \item no_tsk_pckgs_meet_threshold - vector of packages that are not assigned a Task View and meet monthly download threshold.
+#'   \item response_matrix, features, final_package_names, tvdb - are objects created by CTVsuggest:::get_create_features function, that need to be carried forward.
+#' }
 #'
-#' @importFrom lubridate %m-%
-#' @importFrom magrittr %>%
 #'
 
 get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100,

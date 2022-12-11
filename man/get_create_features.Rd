@@ -24,7 +24,7 @@ is given by \code{limiting_n_observations}.}
 
 \item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_NLP]{get_NLP()}} function.}
 
-\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path loaction of the pre saved data.}
+\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path location of the pre saved data.}
 
 \item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
 \code{save_path}.}
@@ -33,6 +33,17 @@ is given by \code{limiting_n_observations}.}
 which is when \code{save_output} is set to \code{\link{TRUE}}}
 
 \item{file_name}{string. Sets the file name for the saved object.}
+}
+\value{
+Returns
+\itemize{
+\item response_matrix - Matrix with a row for each CRAN package, and a column for each CRAN Task View.
+A value of 1 denotes that the package is assigned to the Task View of the corresponding column, and a value of zero if not.
+\item features - Matrix with a row for each CRAN package, and a column for each variable
+\item All_data - List containing a package and an author network created with cranly.
+\item pac_network_igraph - igraph version of the cranly package network.
+\item input_CRAN_data - This just a list containing all of the data created by the CTVsuggest:::get_NLP function, so that it is carried forward.
+}
 }
 \description{
 In particular this function returns a set of features, and a response matrix for all packages whose data has been extracted.

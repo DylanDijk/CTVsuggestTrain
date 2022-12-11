@@ -12,7 +12,7 @@
 #'
 #'
 #' @param get_input_stored logical. If [`TRUE`] then the function uses pre saved data as input, otherwise it runs the `CTVsuggestTrain `internal [get_NLP()] function.
-#' @param get_input_path string. If `get_input_stored` is set to [`TRUE`], `get_input_path` gives the path loaction of the pre saved data.
+#' @param get_input_path string. If `get_input_stored` is set to [`TRUE`], `get_input_path` gives the path location of the pre saved data.
 #'
 #'
 #'
@@ -22,7 +22,15 @@
 #' which is when `save_output` is set to [`TRUE`]
 #' @param file_name string. Sets the file name for the saved object.
 #'
-#' @return
+#' @return Returns
+#'\itemize{
+#'   \item response_matrix - Matrix with a row for each CRAN package, and a column for each CRAN Task View.
+#'   A value of 1 denotes that the package is assigned to the Task View of the corresponding column, and a value of zero if not.
+#'   \item features - Matrix with a row for each CRAN package, and a column for each variable
+#'   \item All_data - List containing a package and an author network created with cranly.
+#'   \item pac_network_igraph - igraph version of the cranly package network.
+#'   \item input_CRAN_data - This just a list containing all of the data created by the CTVsuggest:::get_NLP function, so that it is carried forward.
+#' }
 #'
 
 get_create_features = function(TEST = FALSE, limiting_n_observations = 100,
@@ -381,7 +389,7 @@ features = features[,colnames(features) != "Row.names"]
 
 
 
-
+#### ----------------------------------------------------------------------------------------------- ####
 
 # Creating object to be returned. Which is a list made up of objects needed upstream
 list_to_return = list("response_matrix" = response_matrix, "features" = features, "All_data" = All_data,
