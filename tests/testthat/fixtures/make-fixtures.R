@@ -5,14 +5,21 @@
 get_data(save_output = TRUE, file_name = "get_data_output.rds")
 ## get_data_output TEST
 get_data(TEST = TRUE, save_output = TRUE, file_name = "get_data_output_test.rds")
+## get_data_output TEST 1000 observations
+get_data(TEST = TRUE, limiting_n_observations = 1000, save_output = TRUE, file_name = "get_data_output_test_1000.rds")
 
 
 # get_NLP_output
 get_NLP(get_input_stored = TRUE, save_output = TRUE)
 ## get_NLP_output TEST
 get_NLP(get_input_stored = TRUE, save_output = TRUE,
-        get_input_path = "tests/testthat/fixtures/get_data_output/get_data_output_test.rds",
-        save_path = "tests/testthat/fixtures/get_NLP_output", file_name = "get_NLP_output_test.rds")
+        get_input_path = "tests/testthat/fixtures/get_data_output/get_data_output_test.rds"
+            ,file_name = "get_NLP_output_test.rds")
+## get_NLP_output TEST 1000 observations
+get_NLP(get_input_stored = TRUE, save_output = TRUE,
+        get_input_path = "tests/testthat/fixtures/get_data_output/get_data_output_test_1000.rds"
+            ,file_name = "get_NLP_output_test_1000.rds")
+
 
 
 # get_create_features
@@ -21,6 +28,11 @@ get_create_features(get_input_stored = TRUE, save_output = TRUE)
 get_create_features(get_input_stored = TRUE, save_output = TRUE,
                     get_input_path = "tests/testthat/fixtures/get_NLP_output/get_NLP_output_test.rds",
                     save_path = "tests/testthat/fixtures/get_create_features_output", file_name = "get_create_features_output_test.rds")
+## get_create_features TEST 1000 observations
+get_create_features(get_input_stored = TRUE, save_output = TRUE,
+                    get_input_path = "tests/testthat/fixtures/get_NLP_output/get_NLP_output_test_1000.rds",
+                    file_name = "get_create_features_output_test_1000.rds")
+
 
 
 # get_CRAN_logs
