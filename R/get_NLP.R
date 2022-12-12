@@ -306,7 +306,7 @@ get_NLP = function(TEST = FALSE, limiting_n_observations = 100,
     pkg_tsk_text_comb$test = pkg_tsk_text_comb$test*(idf)
 
 
-    cosine = lsa::cosine(as.matrix(pkg_tsk_text_comb[,-1]))
+    cosine = lsa::cosine(as.vector(pkg_tsk_text_comb[,2]), as.matrix(pkg_tsk_text_comb[,-c(1,2)]))
     cosine = cosine[1,-1]
 
     return(cosine)
