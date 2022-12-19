@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_data.R
 \name{get_data}
 \alias{get_data}
-\title{Gets data for model training. This function is run inside \code{CTVsuggest:::get_NLP()}.}
+\title{Extracts data used to create features for model}
 \usage{
 get_data(
   TEST = FALSE,
@@ -16,7 +16,7 @@ get_data(
 \item{TEST}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 
 More precisely, if \code{\link{TRUE}} a random selection of rows from \code{CRAN_data} is selected, where the number of rows
-is given by \code{limiting_n_observations}.}
+chosen is given by \code{limiting_n_observations}.}
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 
@@ -29,7 +29,7 @@ which is when \code{save_output} is set to \code{\link{TRUE}}}
 \item{file_name}{string. Sets the file name for the saved object.}
 }
 \value{
-Data objects required for rest of scripts involved in training the model
+\code{get_data} returns data objects required for rest of scripts involved in training the model:
 \itemize{
 \item CRAN_data - Data extracted from CRAN package repository using \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}. Duplicated packages removed. If \code{TEST} = \code{\link{TRUE}} then a random selection of rows \code{CRAN_data} of length \code{limiting_n_observations} is selected.
 \item all_CRAN_pks - Package names that have data included in the \code{CRAN_data} object.
@@ -40,10 +40,21 @@ is being used needs to be carried forward.
 }
 }
 \description{
-Gets data for model training. This function is run inside \code{CTVsuggest:::get_NLP()}.
+Extracts data used to create features for model
+}
+\details{
+The \code{get_data()} function is run inside \code{\link[=get_NLP]{get_NLP()}}.
+
+\code{get_data()} extracts the following types of data:
+\itemize{
+\item Task View data, using the \code{\link[=download_taskview_data]{download_taskview_data()}}.
+\item CRAN data from the CRAN package repository using \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}.
+}
+
+\code{get_data()} also runs the \code{\link[cranly:clean_CRAN_db]{cranly::clean_CRAN_db()}} function on the CRAN data repository.
 }
 \examples{
 \donttest{
-CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
-}
+   CTVsuggest:::get_data(TEST = TRUE, limiting_n_observations = 100)
+   }
 }

@@ -151,7 +151,7 @@ As mentioned above, the training of the models is performed with the `CTVsuggest
 <!-- Then for each package I have calculated the cosine similarity between its text vector against all of the Task Views text vectors.  -->
 
 - `get_create_features()`
-- `get_CRAN_logs`.
+- `get_CRAN_logs()`
 
 
 
