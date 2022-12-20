@@ -305,15 +305,11 @@ get_NLP = function(TEST = FALSE,
 
 
   message("cleaning and converting package text to term frequencies")
-  # titles_descriptions_packages_freq = pbapply::pblapply(titles_descriptions_packages_ls_cln, fun1)
 
-  # library("parallel")
-  # cl = makeCluster(2)
-  #
-  # titles_descriptions_packages_freq = parallel::parLapply(titles_descriptions_packages_ls_cln, fun1, cl = cl)
-  #
-  # stopCluster(cl)
-  titles_descriptions_packages_freq = lapply(titles_descriptions_packages_ls_cln, fun1)
+  library("parallel")
+  cl = makeCluster(2)
+  titles_descriptions_packages_freq = parallel::parLapply(titles_descriptions_packages_ls_cln, fun1, cl = cl)
+  stopCluster(cl)
 
 
   # Merging package vectors with Task View vectors and then taking cosine similarity
@@ -335,11 +331,9 @@ get_NLP = function(TEST = FALSE,
 
   message("Merging package vectors with Task View vectors and then taking cosine similarity")
 
-  # cl = makeCluster(2)
-  # titles_descriptions_packages_cosine = parallel::parLapply(titles_descriptions_packages_freq, fun2, cl = cl)
-  #
-  # stopCluster(cl)
-  titles_descriptions_packages_cosine = lapply(titles_descriptions_packages_freq, fun2)
+  cl = makeCluster(2)
+  titles_descriptions_packages_cosine = parallel::parLapply(titles_descriptions_packages_freq, fun2, cl = cl)
+  stopCluster(cl)
 
   feature_matrix_titles_descriptions_packages_cosine = titles_descriptions_packages_cosine
 
