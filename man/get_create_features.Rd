@@ -24,7 +24,7 @@ chosen is given by \code{limiting_n_observations}.}
 
 \item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_data]{get_data()}} function.}
 
-\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path loaction of the pre saved data.}
+\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path location of the pre-saved data.}
 
 \item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
 \code{save_path}.}

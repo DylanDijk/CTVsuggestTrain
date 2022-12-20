@@ -9,8 +9,13 @@
 #'  The `get_NLP()` function is run inside [get_CRAN_logs()].
 #'
 #'  `get_NLP()` carries out the following steps:
-#'  * First the markdown files that generate the CRAN Task View description pages are imported.
+#'  * First the markdown files that generate the CRAN Task View description pages are imported. The text is then cleaned, for example, links are removed.
+#'  * Using the text extracted for each Task View, a data frame is created which gives the count of each word for each Task View.
+#'  * Using this object, we compute the TF-IDF weightings for each word. This is a data frame of the same dimension as the previous object mentioned.
+#'  * Next we use code given by Dirk Eddilbettel, which extracts the titles and descriptions of each of the packages on CRAN. This is given in a matrix object
+#'    with a row for each package.
 #'  *
+#'
 #'
 #' @param TEST logical. Default is [`FALSE`]. If [`TRUE`], then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 #'
@@ -21,7 +26,7 @@
 #'
 #'
 #' @param get_input_stored logical. If [`TRUE`] then the function uses pre saved data as input, otherwise it runs the `CTVsuggestTrain `internal [get_data()] function.
-#' @param get_input_path string. If `get_input_stored` is set to [`TRUE`], `get_input_path` gives the path loaction of the pre saved data.
+#' @param get_input_path string. If `get_input_stored` is set to [`TRUE`], `get_input_path` gives the path location of the pre-saved data.
 #'
 #'
 #'
@@ -97,7 +102,7 @@ get_NLP = function(TEST = FALSE,
     #TaskView = "HighPerformanceComputing"
     #TaskView = "ReproducibleResearch"
 
-    if(TaskView == "HighPerformanceComputing"){
+    if (TaskView == "HighPerformanceComputing") {
       raw = readLines(paste0("https://raw.githubusercontent.com/cran-task-views/",TaskView,"/master/",TaskView,".md"))
     } else {
       raw = readLines(paste0("https://raw.githubusercontent.com/cran-task-views/",TaskView,"/main/",TaskView,".md"))
@@ -267,7 +272,7 @@ get_NLP = function(TEST = FALSE,
 
 
 
-  # Creating dataframe object, Titles and Description columns
+  # Creating data frame object, Titles and Description columns
   titles_descriptions_packages = data.frame(Package = titles_descriptions_packages_data[,"Package"],
                                             text = paste(Title = titles_descriptions_packages_data[,"Title"],
                                                          Description = titles_descriptions_packages_data[,"Description"]))
@@ -303,7 +308,6 @@ get_NLP = function(TEST = FALSE,
   }
 
 
-
   message("cleaning and converting package text to term frequencies")
 
   cl = makeCluster(4)
@@ -325,7 +329,6 @@ get_NLP = function(TEST = FALSE,
 
     return(cosine)
   }
-
 
 
   message("Merging package vectors with Task View vectors and then taking cosine similarity")
