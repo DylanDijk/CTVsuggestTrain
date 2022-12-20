@@ -257,7 +257,7 @@ get_NLP = function(TEST = FALSE,
 
   ############ TESTING ###########
   # Limits number of observations in dataset to speed up tests
-  if(input_CRAN_data$TEST){
+  if (input_CRAN_data$TEST) {
 
     titles_descriptions_packages_data = titles_descriptions_packages_data[titles_descriptions_packages_data[,"Package"] %in% input_CRAN_data$all_CRAN_pks,]
 
@@ -305,8 +305,15 @@ get_NLP = function(TEST = FALSE,
 
 
   message("cleaning and converting package text to term frequencies")
-  titles_descriptions_packages_freq = pbapply::pblapply(titles_descriptions_packages_ls_cln, fun1)
+  # titles_descriptions_packages_freq = pbapply::pblapply(titles_descriptions_packages_ls_cln, fun1)
 
+  # library("parallel")
+  # cl = makeCluster(2)
+  #
+  # titles_descriptions_packages_freq = parallel::parLapply(titles_descriptions_packages_ls_cln, fun1, cl = cl)
+  #
+  # stopCluster(cl)
+  titles_descriptions_packages_freq = lapply(titles_descriptions_packages_ls_cln, fun1)
 
 
   # Merging package vectors with Task View vectors and then taking cosine similarity
@@ -327,8 +334,12 @@ get_NLP = function(TEST = FALSE,
 
 
   message("Merging package vectors with Task View vectors and then taking cosine similarity")
-  titles_descriptions_packages_cosine = pbapply::pblapply(titles_descriptions_packages_freq, fun2)
 
+  # cl = makeCluster(2)
+  # titles_descriptions_packages_cosine = parallel::parLapply(titles_descriptions_packages_freq, fun2, cl = cl)
+  #
+  # stopCluster(cl)
+  titles_descriptions_packages_cosine = lapply(titles_descriptions_packages_freq, fun2)
 
   feature_matrix_titles_descriptions_packages_cosine = titles_descriptions_packages_cosine
 
