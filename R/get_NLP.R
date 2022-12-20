@@ -99,7 +99,7 @@ get_NLP = function(TEST = FALSE,
 
     if(TaskView == "HighPerformanceComputing"){
       raw = readLines(paste0("https://raw.githubusercontent.com/cran-task-views/",TaskView,"/master/",TaskView,".md"))
-    } else{
+    } else {
       raw = readLines(paste0("https://raw.githubusercontent.com/cran-task-views/",TaskView,"/main/",TaskView,".md"))
     }
 
@@ -306,8 +306,7 @@ get_NLP = function(TEST = FALSE,
 
   message("cleaning and converting package text to term frequencies")
 
-  library("parallel")
-  cl = makeCluster(2)
+  cl = makeCluster(4)
   titles_descriptions_packages_freq = parallel::parLapply(titles_descriptions_packages_ls_cln, fun1, cl = cl)
   stopCluster(cl)
 
@@ -331,7 +330,7 @@ get_NLP = function(TEST = FALSE,
 
   message("Merging package vectors with Task View vectors and then taking cosine similarity")
 
-  cl = makeCluster(2)
+  cl = makeCluster(4)
   titles_descriptions_packages_cosine = parallel::parLapply(titles_descriptions_packages_freq, fun2, cl = cl)
   stopCluster(cl)
 
