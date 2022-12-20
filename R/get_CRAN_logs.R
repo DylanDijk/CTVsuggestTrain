@@ -30,10 +30,13 @@
 #'
 #'
 
-get_CRAN_logs = function(TEST = FALSE, limiting_n_observations = 100,
-                         get_input_stored = FALSE, get_input_path = "tests/testthat/fixtures/get_create_features_output/get_create_features_output.rds",
-                         save_output = FALSE, save_path = "tests/testthat/fixtures/get_CRAN_logs_output",
-                         file_name = "get_CRAN_logs_output.rds"){
+get_CRAN_logs = function(TEST = FALSE,
+                         limiting_n_observations = 100,
+                         get_input_stored = FALSE,
+                         get_input_path = "tests/testthat/fixtures/get_create_features_output/get_create_features_output.rds",
+                         save_output = FALSE,
+                         save_path = "tests/testthat/fixtures/get_CRAN_logs_output",
+                         file_name = "get_CRAN_logs_output.rds") {
 
 
 

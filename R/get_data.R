@@ -7,22 +7,10 @@
 #'    * Task View data, using the [download_taskview_data()].
 #'    * CRAN data from the CRAN package repository using [tools::CRAN_package_db()].
 #'
-#' `get_data()` also runs the [cranly::clean_CRAN_db()] function on the CRAN data repository.
+#' `get_data()` then also runs the [cranly::clean_CRAN_db()] function on the CRAN data repository.
 #'
 #'
-#' @param TEST logical. Default is [`FALSE`]. If [`TRUE`], then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
-#'
-#' More precisely, if [`TRUE`] a random selection of rows from `CRAN_data` is selected, where the number of rows
-#' chosen is given by `limiting_n_observations`.
-#'
-#' @param limiting_n_observations Integer that decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].
-#'
-#'
-#' @param save_output logical. Default is [`FALSE`]. If [`TRUE`], then the list that is returned is saved to the path set by
-#'    `save_path`.
-#' @param save_path string. Sets the path where the list created by the function will be saved,
-#'    which is when `save_output` is set to [`TRUE`]
-#' @param file_name string. Sets the file name for the saved object.
+#' @inheritParams get_NLP
 #'
 #'
 #' @returns `get_data` returns data objects required for rest of scripts involved in training the model:
@@ -41,7 +29,9 @@
 #'    }
 get_data = function(TEST = FALSE,
                     limiting_n_observations = 100,
-                    save_output = FALSE, save_path = "tests/testthat/fixtures/get_data_output", file_name){
+                    save_output = FALSE,
+                    save_path = "tests/testthat/fixtures/get_data_output",
+                    file_name) {
 
 
   message("Downloading package metadata from CRAN package repository")

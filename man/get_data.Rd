@@ -51,7 +51,7 @@ The \code{get_data()} function is run inside \code{\link[=get_NLP]{get_NLP()}}.
 \item CRAN data from the CRAN package repository using \code{\link[tools:CRANtools]{tools::CRAN_package_db()}}.
 }
 
-\code{get_data()} also runs the \code{\link[cranly:clean_CRAN_db]{cranly::clean_CRAN_db()}} function on the CRAN data repository.
+\code{get_data()} then also runs the \code{\link[cranly:clean_CRAN_db]{cranly::clean_CRAN_db()}} function on the CRAN data repository.
 }
 \examples{
 \donttest{

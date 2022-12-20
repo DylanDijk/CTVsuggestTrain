@@ -18,13 +18,13 @@ get_create_features(
 \item{TEST}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 
 More precisely, if \code{\link{TRUE}} a random selection of rows from \code{CRAN_data} is selected, where the number of rows
-is given by \code{limiting_n_observations}.}
+chosen is given by \code{limiting_n_observations}.}
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 
-\item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_NLP]{get_NLP()}} function.}
+\item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_data]{get_data()}} function.}
 
-\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path location of the pre saved data.}
+\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path loaction of the pre saved data.}
 
 \item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
 \code{save_path}.}
