@@ -57,8 +57,9 @@ The \code{get_NLP()} function is run inside \code{\link[=get_CRAN_logs]{get_CRAN
 \item First the markdown files that generate the CRAN Task View description pages are imported. The text is then cleaned, for example, links are removed.
 \item Using the text extracted for each Task View, a data frame is created which gives the count of each word for each Task View.
 \item Using this object, we compute the TF-IDF weightings for each word. This is a data frame of the same dimension as the previous object mentioned.
-\item Next we use code given by Dirk Eddilbettel, which extracts the titles and descriptions of each of the packages on CRAN. This is given in a matrix object
+\item Next we use code, provided by Dirk Eddilbettel, which extracts the titles and descriptions of each of the packages on CRAN. This is given in a matrix object
 with a row for each package.
-\item 
+\item Then we create a list, consisting of data frames for each package, that give the counts for words in each of the package text.
+\item For each package, we take the cosine similarity of the package text to the TF-IDF text of each Task View.
 }
 }
