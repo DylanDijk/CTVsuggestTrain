@@ -320,7 +320,7 @@ get_NLP = function(TEST = FALSE,
   fun2 = function(x){
 
     pkg_tsk_text_comb = merge(x = x, y = TF_IDF, by = "word", all.y = TRUE)
-    pkg_tsk_text_comb[is.na(pkg_tsk_text_comb)] = 0
+    pkg_tsk_text_comb$test[is.na(pkg_tsk_text_comb$test)] = 0
 
     # Have included here weighting the package vectors by IDF
     pkg_tsk_text_comb$test = pkg_tsk_text_comb$test*(idf)
