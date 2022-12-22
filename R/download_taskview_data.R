@@ -1,7 +1,6 @@
-# Function downloads Task View data
-# This is a modification of the RWsearch::tvdb_down function, this modified version does not save a file to disk
-
-#' Title
+#' Downloads Task View data
+#'
+#' This is a modification of the RWsearch::tvdb_down function, this modified version does not save a file to disk.
 #'
 #' @param repos
 #'

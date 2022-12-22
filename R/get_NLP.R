@@ -4,9 +4,11 @@
 #' `get_NLP()` creates the NLP features for the model using Task View text and Package description text.
 #' The function extracts the Task View text from the source markdown files on GitHub, then cleans them.
 #' Then with the corpus of words generated from the Task Views text, it creates TF_IDF vectors for each of the words.
+#' Then it computes the cosine similarity of the text in package titles and descriptions, to the TF-IDF vectors of each Task View.
+#' Therefore, generating a set of features for each package, where the number of features is given by the number of Task Views.
 #'
 #'@details
-#'  The `get_NLP()` function is run inside [get_CRAN_logs()].
+#'  The `get_NLP()` function is run inside [get_create_features()].
 #'
 #'  `get_NLP()` carries out the following steps:
 #'  * First the markdown files that generate the CRAN Task View description pages are imported. The text is then cleaned, for example, links are removed.
@@ -87,7 +89,7 @@ get_NLP = function(TEST = FALSE,
 
 #### ----------------------------------------------------------------------------------------------- ####
 
-# Reading and Cleaning Text for all Task Views
+  # Reading and Cleaning Text for all Task Views
   message("Reading and Cleaning Text for all Task Views ")
   TaskViews = RWsearch::tvdb_vec(input_CRAN_data$tvdb)
 
@@ -162,7 +164,7 @@ get_NLP = function(TEST = FALSE,
 
 
 #### ----------------------------------------------------------------------------------------------- ####
-# Creates data frame object that gives the count of each word in each Task View
+  # Creates data frame object that gives the count of each word in each Task View
   n = vector(length = length(TaskViews))
   names(n) = TaskViews
 

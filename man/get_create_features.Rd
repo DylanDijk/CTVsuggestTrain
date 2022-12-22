@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_create_features.R
 \name{get_create_features}
 \alias{get_create_features}
-\title{Creates a set of features for each package, using the data that has been extracted from CRAN.}
+\title{Creates a feature matrix for CRAN packages}
 \usage{
 get_create_features(
   TEST = FALSE,
@@ -48,4 +48,13 @@ A value of 1 denotes that the package is assigned to the Task View of the corres
 \description{
 In particular this function returns a set of features, and a response matrix for all packages whose data has been extracted.
 A subset of these are then used for model training and testing. And the features of the packages are required to generate model predictions, using the trained model.
+}
+\details{
+The \code{get_create_features()} function is run inside \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}.
+
+\code{get_create_features()} carries out the following steps:
+\itemize{
+\item Firstly, CRAN packages with no author have their maintainer set as the author in the \code{CRAN_cranly_data} object.
+\item Then using the \code{\link[cranly:build_network.cranly_db]{cranly::build_network()}}
+}
 }
