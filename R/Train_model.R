@@ -1,4 +1,4 @@
-#' Title
+#' Trains model
 #'
 #' @param TEST Logical. If FALSE model is trained using all available CRAN data, otherwise it is restricted to a subset.
 #' @param limiting_n_observations Integer. Decides the size of the subset of `CRAN_data`, when `TEST` is [`TRUE`].

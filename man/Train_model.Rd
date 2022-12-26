@@ -2,7 +2,7 @@
 % Please edit documentation in R/Train_model.R
 \name{Train_model}
 \alias{Train_model}
-\title{Title}
+\title{Trains model}
 \usage{
 Train_model(
   TEST = FALSE,
@@ -36,7 +36,7 @@ Returns
 }
 }
 \description{
-Title
+Trains model
 }
 \examples{
 \dontrun{

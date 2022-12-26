@@ -13,10 +13,15 @@
 #'  * Next a list is created, with an element for each CRAN package that is assigned to at least one Task View.
 #'    Each element is a character vector with the name of Task Views that the corresponding package is assigned to.
 #'  * Response matrix is created - object is described in the \strong{Value} section of documentation.
-#'  * The features are then created:
+#'  * The feature matrices are then created, these are matrices where each row corresponds to a feature vector for a CRAN package.
+#'  The final feature matrix is then a combination of each of these individual matrices.
+#'  In the description of the feature matrices below, let \eqn{x} denote an example CRAN package.
 #'   \describe{
-#'     \item{Package Dependencies}{Feature matrix that gives the proportion of the Task Views where the packages belong to}
-#'     \item{Other Author Packages}{Second item}
+#'     \item{Package Dependencies}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of the hard dependencies of \eqn{x}.
+#'
+#'     For example if a quarter of the hard dependencies of \eqn{x} belong to Bayesian than the corresponding element of the vector will be 0.25.}
+#'     \item{Other Author Packages}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of other packages developed by the authors of \eqn{x}.}
+#'     \item{Text Data}{[feature_matrix_titles_descriptions_packages_cosine] object is created by the [get_NLP()] function.}
 #'   }
 #'
 #'
@@ -224,7 +229,7 @@ get_create_features = function(TEST = FALSE,
 
   for(i in 1:length(input_CRAN_data$all_CRAN_pks)){
 
-    print(i)
+    #print(i)
     neigh = igraph::neighbors(taskviews_pac_network_rem_edges_igraph, input_CRAN_data$all_CRAN_pks[i], mode = c("all"))$taskview
     n_none = sum(unlist(lapply(neigh, function(x){is.null(x)})))
     props = (prop.table(table(c(unlist(neigh), rep("none", n_none)))))

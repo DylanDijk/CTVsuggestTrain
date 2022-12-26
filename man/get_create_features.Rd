@@ -57,12 +57,17 @@ The \code{get_create_features()} function is run inside \code{\link[=get_CRAN_lo
 \item Firstly, CRAN packages with no author have their maintainer set as the author in the \code{CRAN_cranly_data} object.
 \item Then using the \code{\link[cranly:build_network.cranly_db]{cranly::build_network()}}, Author and Package \pkg{cranly} networks are built.
 \item Next a list is created, with an element for each CRAN package that is assigned to at least one Task View.
-Each element is a character vector with the name os Task Views that the corresponding package is assigned to.
+Each element is a character vector with the name of Task Views that the corresponding package is assigned to.
 \item Response matrix is created - object is described in the \strong{Value} section of documentation.
-\item The features are then created:
+\item The feature matrices are then created, these are matrices where each row corresponds to a feature vector for a CRAN package.
+The final feature matrix is then a combination of each of these individual matrices.
+In the description of the feature matrices below, let \eqn{x} denote an example CRAN package.
 \describe{
-\item{One}{Feature matrix that gives the proportion of the Task Views where the packages belong to}
-\item{Two}{Second item}
+\item{Package Dependencies}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of the hard dependencies of \eqn{x}.
+
+For example if a quarter of the hard dependencies of \eqn{x} belong to Bayesian than the corresponding element of the vector will be 0.25.}
+\item{Other Author Packages}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of other packages developed by the authors of \eqn{x}.}
+\item{Text Data}{\link{feature_matrix_titles_descriptions_packages_cosine} object is created by the \code{\link[=get_NLP]{get_NLP()}} function.}
 }
 }
 }
