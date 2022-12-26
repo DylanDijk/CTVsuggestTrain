@@ -58,6 +58,11 @@ The \code{get_create_features()} function is run inside \code{\link[=get_CRAN_lo
 \item Then using the \code{\link[cranly:build_network.cranly_db]{cranly::build_network()}}, Author and Package \pkg{cranly} networks are built.
 \item Next a list is created, with an element for each CRAN package that is assigned to at least one Task View.
 Each element is a character vector with the name os Task Views that the corresponding package is assigned to.
-\item Response matrix is created, object is described in the \strong{Value}
+\item Response matrix is created - object is described in the \strong{Value} section of documentation.
+\item The features are then created:
+\describe{
+\item{One}{Feature matrix that gives the proportion of the Task Views where the packages belong to}
+\item{Two}{Second item}
+}
 }
 }

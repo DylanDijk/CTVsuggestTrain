@@ -11,9 +11,15 @@
 #'  * Firstly, CRAN packages with no author have their maintainer set as the author in the `CRAN_cranly_data` object.
 #'  * Then using the [cranly::build_network()], Author and Package \pkg{cranly} networks are built.
 #'  * Next a list is created, with an element for each CRAN package that is assigned to at least one Task View.
-#'    Each element is a character vector with the name os Task Views that the corresponding package is assigned to.
-#'  * Response matrix is created - object is described in the \strong{Value} section
-#'  * Response matrix is created - object is described in the \strong{Value} section
+#'    Each element is a character vector with the name of Task Views that the corresponding package is assigned to.
+#'  * Response matrix is created - object is described in the \strong{Value} section of documentation.
+#'  * The features are then created:
+#'   \describe{
+#'     \item{Package Dependencies}{Feature matrix that gives the proportion of the Task Views where the packages belong to}
+#'     \item{Other Author Packages}{Second item}
+#'   }
+#'
+#'
 #'
 #'
 #'
@@ -98,8 +104,6 @@ get_create_features = function(TEST = FALSE,
 #### ----------------------------------------------------------------------------------------------- ####
 
 
-
-
 #### ----------------------------------------------------------------------------------------------- ####
 
   ## Building author and package networks ##
@@ -116,7 +120,6 @@ get_create_features = function(TEST = FALSE,
   pac_network_igraph = igraph::as.igraph(All_data$pac_network)
 
 #### ----------------------------------------------------------------------------------------------- ####
-
 
 
 #### ----------------------------------------------------------------------------------------------- ####
@@ -137,13 +140,12 @@ get_create_features = function(TEST = FALSE,
   packages_assigned_Task_View = unique(packages_assigned_Task_View)
 
 
-
   # Creating list of packages with the Task Views assigned to each one
 
   taskviews_of_pckgs = vector(mode = "list", length = length(packages_assigned_Task_View))
 
-  for(j in 1:length(packages_assigned_Task_View)){
-    for(i in 1:length(task_views)){
+  for(j in seq_len(length(packages_assigned_Task_View))){
+    for(i in seq_len(length(task_views))){
 
       if(packages_assigned_Task_View[j] %in% RWsearch::tvdb_pkgs(char = task_views[i], tvdb = input_CRAN_data$tvdb)) {
 
@@ -158,17 +160,17 @@ get_create_features = function(TEST = FALSE,
 
   #taskviews_of_pckgs$trackeR
 
+#### ----------------------------------------------------------------------------------------------- ####
 
 
 #### ----------------------------------------------------------------------------------------------- ####
-
 
   # Creating the response matrix
   response_matrix = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(task_views) + 1)
   colnames(response_matrix) = c(task_views, "none")
 
   # Creating matrix that denotes which Task View(s) each package belongs to
-  for (i in 1:length(input_CRAN_data$all_CRAN_pks)) {
+  for (i in seq_len(length(input_CRAN_data$all_CRAN_pks))) {
     #i = 6214
     #i = 13672
 
@@ -188,16 +190,14 @@ get_create_features = function(TEST = FALSE,
 
   #response_matrix["trackeR",]
 
-
+#### ----------------------------------------------------------------------------------------------- ####
 
 #### ----------------------------------------------------------------------------------------------- ####
 
-
-
   ### Creating features/predictors ###
 
-  # Creating Proportion of neighboring packages feature matrix
-  message("Creating  Proportion of neighboring packages feature matrix")
+  ## Creating Proportion of neighboring packages feature matrix ##
+  message("Creating Proportion of neighboring packages feature matrix")
 
 
   # Giving a Task View attribute to the pac_network
@@ -213,7 +213,6 @@ get_create_features = function(TEST = FALSE,
   # Deleting the soft dependencies between packages
   soft_dependencies_edges = which(!is.element(igraph::E(pac_network_igraph)$type, c("depends","imports", "linking_to")))
   taskviews_pac_network_rem_edges_igraph = igraph::delete.edges(pac_network_igraph, soft_dependencies_edges)
-
 
 
 
@@ -237,19 +236,10 @@ get_create_features = function(TEST = FALSE,
   rownames(feature_matrix_all_neighbour_pkgs) = input_CRAN_data$all_CRAN_pks
 
 
+#### ----------------------------------------------------------------------------------------------- ####
 
 
-
-
-##### Load Features using text data of packages #####
-# This has been created in the NLP R script. Reliant on the number of package available on GitHub page.
-
-
-
-
-
-
-
+#### ----------------------------------------------------------------------------------------------- ####
 
 ##### Proportion of other packages that Author worked on  ####
 message("Creating Proportion of other packages that Author worked on feature matrix")
