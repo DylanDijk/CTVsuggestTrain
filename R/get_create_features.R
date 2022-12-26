@@ -9,7 +9,12 @@
 #'
 #'  `get_create_features()` carries out the following steps:
 #'  * Firstly, CRAN packages with no author have their maintainer set as the author in the `CRAN_cranly_data` object.
-#'  * Then using the [cranly::build_network()]
+#'  * Then using the [cranly::build_network()], Author and Package \pkg{cranly} networks are built.
+#'  * Next a list is created, with an element for each CRAN package that is assigned to at least one Task View.
+#'    Each element is a character vector with the name os Task Views that the corresponding package is assigned to.
+#'  * Response matrix is created - object is described in the \strong{Value} section
+#'  * Response matrix is created - object is described in the \strong{Value} section
+#'
 #'
 #'
 #' @inheritParams get_NLP
@@ -101,7 +106,7 @@ get_create_features = function(TEST = FALSE,
   # Note that if running a test and have restricted the number of packages,
   # when building the package network the number of packages listed in the node set will increase.
   # Because we are looking at all dependencies of these packages.
-  # Building the package network will also add packages that are not hosted on CRAN but are hosted on other repos.
+  # Building the package network will also add packages that are not hosted on CRAN but are hosted on other repositories.
   aut_network <- cranly::build_network(input_CRAN_data$CRAN_cranly_data, perspective = 'author')
   pac_network <- cranly::build_network(input_CRAN_data$CRAN_cranly_data, perspective = 'package')
   All_data = list("aut_network" = aut_network, "pac_network" = pac_network)
@@ -120,8 +125,11 @@ get_create_features = function(TEST = FALSE,
   # I now want to create a vector of packages that are assigned to a Task View and are hosted on CRAN
   # As there exist packages that belong to a Task View but are not hosted on CRAN
 
+  # Character vector containing names of current Task Views
+  task_views = RWsearch::tvdb_vec(input_CRAN_data$tvdb)
+
   # Packages that are assigned to a Task View
-  task_view_packages = Reduce(c,RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb), tvdb = input_CRAN_data$tvdb))
+  task_view_packages = Reduce(c,RWsearch::tvdb_pkgs(char = task_views, tvdb = input_CRAN_data$tvdb))
   task_view_packages = unique(task_view_packages)
   # Removing the packages that are not hosted on CRAN
   packages_assigned_Task_View = task_view_packages[task_view_packages %in% input_CRAN_data$all_CRAN_pks]
@@ -129,114 +137,104 @@ get_create_features = function(TEST = FALSE,
   packages_assigned_Task_View = unique(packages_assigned_Task_View)
 
 
-  # Just looking at Hard Dependencies
-  # dep_imp_edges = which(!is.element(E(All_taskviews_igraph)$type, c("depends","imports", "linking_to")))
-  # All_taskviews_rem_edges_igraph = delete.edges(All_taskviews_igraph, dep_imp_edges)
+
+  # Creating list of packages with the Task Views assigned to each one
+
+  taskviews_of_pckgs = vector(mode = "list", length = length(packages_assigned_Task_View))
+
+  for(j in 1:length(packages_assigned_Task_View)){
+    for(i in 1:length(task_views)){
+
+      if(packages_assigned_Task_View[j] %in% RWsearch::tvdb_pkgs(char = task_views[i], tvdb = input_CRAN_data$tvdb)) {
+
+        taskviews_of_pckgs[[j]] = c(taskviews_of_pckgs[[j]], task_views[i])
+
+      }
+    }
+  }
+
+
+  names(taskviews_of_pckgs) = packages_assigned_Task_View
+
+  #taskviews_of_pckgs$trackeR
 
 
 
-##########################################################################################
+#### ----------------------------------------------------------------------------------------------- ####
 
 
-# Creating list of packages with the Task Views assigned to each one
+  # Creating the response matrix
+  response_matrix = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(task_views) + 1)
+  colnames(response_matrix) = c(task_views, "none")
 
-taskviews_of_pckgs = vector(mode = "list", length = length(packages_assigned_Task_View))
+  # Creating matrix that denotes which Task View(s) each package belongs to
+  for (i in 1:length(input_CRAN_data$all_CRAN_pks)) {
+    #i = 6214
+    #i = 13672
 
-for(j in 1:length(packages_assigned_Task_View)){
-  for(i in 1:length(tvdb)){
-    print(paste(j,i))
-    if(packages_assigned_Task_View[j] %in% RWsearch::tvdb_pkgs(char = RWsearch::tvdb_vec(input_CRAN_data$tvdb)[i], tvdb = input_CRAN_data$tvdb)) {
+    if (is.null(taskviews_of_pckgs[[input_CRAN_data$all_CRAN_pks[i]]])) {
 
-      taskviews_of_pckgs[[j]] = append(taskviews_of_pckgs[[j]], RWsearch::tvdb_vec(input_CRAN_data$tvdb)[i])
+      response_matrix[i,"none"] = 1
+
+    } else {
+
+
+      response_matrix[i,taskviews_of_pckgs[[input_CRAN_data$all_CRAN_pks[i]]]] = 1
 
     }
   }
-}
 
+  rownames(response_matrix) = input_CRAN_data$all_CRAN_pks
 
-names(taskviews_of_pckgs) = packages_assigned_Task_View
-
-#taskviews_of_pckgs$trackeR
-
-
-##########################################################################################
+  #response_matrix["trackeR",]
 
 
 
-########## Creating the response matrix #######
-
-response_matrix = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(RWsearch::tvdb_vec(tvdb)) + 1)
-colnames(response_matrix) = c(RWsearch::tvdb_vec(tvdb), "none")
-
-# Creating matrix that denotes which Task View(s) each package belongs to
-for(i in 1:length(input_CRAN_data$all_CRAN_pks)){
-  #i = 6214
-  #i = 13672
-
-  if(is.null(taskviews_of_pckgs[[input_CRAN_data$all_CRAN_pks[i]]])){
-
-    response_matrix[i,"none"] = 1
-
-  } else {
+#### ----------------------------------------------------------------------------------------------- ####
 
 
-    response_matrix[i,taskviews_of_pckgs[[input_CRAN_data$all_CRAN_pks[i]]]] = 1
+
+  ### Creating features/predictors ###
+
+  # Creating Proportion of neighboring packages feature matrix
+  message("Creating  Proportion of neighboring packages feature matrix")
+
+
+  # Giving a Task View attribute to the pac_network
+  pac_network_igraph = igraph::set_vertex_attr(pac_network_igraph, name = "taskview",
+                                       index = packages_assigned_Task_View,
+                                       taskviews_of_pckgs[packages_assigned_Task_View])
+
+  # check:
+  # V(pac_network_igraph)$taskview[V(pac_network_igraph)$name == "ggplot2"]
+  # V(pac_network_igraph)$taskview[V(pac_network_igraph)$name == "trackeR"]
+
+
+  # Deleting the soft dependencies between packages
+  soft_dependencies_edges = which(!is.element(igraph::E(pac_network_igraph)$type, c("depends","imports", "linking_to")))
+  taskviews_pac_network_rem_edges_igraph = igraph::delete.edges(pac_network_igraph, soft_dependencies_edges)
+
+
+
+
+  # Creating matrix where for each package it gives the proportion of immediate hard dependencies.
+  # In the `neighbours` function `mode` is set to `c("all")` meaning that we are looking at
+  # dependencies of a package and its reverse dependencies.
+  feature_matrix_all_neighbour_pkgs = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(task_views) + 1)
+  colnames(feature_matrix_all_neighbour_pkgs) = c(task_views, "none")
+
+  for(i in 1:length(input_CRAN_data$all_CRAN_pks)){
+
+    print(i)
+    neigh = igraph::neighbors(taskviews_pac_network_rem_edges_igraph, input_CRAN_data$all_CRAN_pks[i], mode = c("all"))$taskview
+    n_none = sum(unlist(lapply(neigh, function(x){is.null(x)})))
+    props = (prop.table(table(c(unlist(neigh), rep("none", n_none)))))
+
+    feature_matrix_all_neighbour_pkgs[i,names(props)] = as.vector(props)
 
   }
-}
 
-rownames(response_matrix) = input_CRAN_data$all_CRAN_pks
-
-#response_matrix["trackeR",]
-
-
-
-##########################################################################################
-
-
-
-########## Creating features/predictors ######
-
-##### Creating  Proportion of neighboring packages feature matrix ####
-message("Creating  Proportion of neighboring packages feature matrix")
-# creating graph object removing soft dependencies
-
-# Giving a Task View attribute to the pac_network
-pac_network_igraph = igraph::set_vertex_attr(pac_network_igraph, name = "taskview",
-                                     index = packages_assigned_Task_View,
-                                     taskviews_of_pckgs[packages_assigned_Task_View])
-
-# check:
-# V(pac_network_igraph)$taskview[V(pac_network_igraph)$name == "ggplot2"]
-# V(pac_network_igraph)$taskview[V(pac_network_igraph)$name == "trackeR"]
-
-
-# Deleting the soft dependencies between packages
-soft_dependencies_edges = which(!is.element(igraph::E(pac_network_igraph)$type, c("depends","imports", "linking_to")))
-taskviews_pac_network_rem_edges_igraph = igraph::delete.edges(pac_network_igraph, soft_dependencies_edges)
-
-
-
-
-# feature_matrix_all_neighbour_pkgs     = board %>% pin_read("feature_matrix_all_neighbour_pkgs")
-# Creating matrix where for each package it gives the proportion of immediate hard dependencies.
-# In the `neighbours` function `mode` is set to `c("all")` meaning that we are looking at on both
-# dependencies of a package and its reverse dependencies.
-feature_matrix_all_neighbour_pkgs = matrix(0, nrow = length(input_CRAN_data$all_CRAN_pks), ncol = length(RWsearch::tvdb_vec(tvdb)) + 1)
-colnames(feature_matrix_all_neighbour_pkgs) = c(RWsearch::tvdb_vec(tvdb), "none")
-
-for(i in 1:length(input_CRAN_data$all_CRAN_pks)){
-
-  print(i)
-  neigh = igraph::neighbors(taskviews_pac_network_rem_edges_igraph, input_CRAN_data$all_CRAN_pks[i], mode = c("all"))$taskview
-  n_none = sum(unlist(lapply(neigh, function(x){is.null(x)})))
-  props = (prop.table(table(c(unlist(neigh), rep("none", n_none)))))
-
-  feature_matrix_all_neighbour_pkgs[i,names(props)] = as.vector(props)
-
-}
-
-rownames(feature_matrix_all_neighbour_pkgs) = input_CRAN_data$all_CRAN_pks
+  rownames(feature_matrix_all_neighbour_pkgs) = input_CRAN_data$all_CRAN_pks
 
 
 

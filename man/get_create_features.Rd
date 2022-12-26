@@ -55,6 +55,9 @@ The \code{get_create_features()} function is run inside \code{\link[=get_CRAN_lo
 \code{get_create_features()} carries out the following steps:
 \itemize{
 \item Firstly, CRAN packages with no author have their maintainer set as the author in the \code{CRAN_cranly_data} object.
-\item Then using the \code{\link[cranly:build_network.cranly_db]{cranly::build_network()}}
+\item Then using the \code{\link[cranly:build_network.cranly_db]{cranly::build_network()}}, Author and Package \pkg{cranly} networks are built.
+\item Next a list is created, with an element for each CRAN package that is assigned to at least one Task View.
+Each element is a character vector with the name os Task Views that the corresponding package is assigned to.
+\item Response matrix is created, object is described in the \strong{Value}
 }
 }
