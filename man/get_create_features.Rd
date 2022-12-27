@@ -37,16 +37,18 @@ which is when \code{save_output} is set to \code{\link{TRUE}}}
 \value{
 Returns
 \itemize{
-\item response_matrix - Matrix with a row for each CRAN package, and a column for each CRAN Task View.
+\item \code{response_matrix} - Matrix with a row for each CRAN package, and a column for each CRAN Task View.
 A value of 1 denotes that the package is assigned to the Task View of the corresponding column, and a value of zero if not.
-\item features - Matrix with a row for each CRAN package, and a column for each variable
-\item All_data - List containing a package and an author network created with cranly.
-\item pac_network_igraph - igraph version of the cranly package network.
-\item input_CRAN_data - This just a list containing all of the data created by the CTVsuggest:::get_NLP function, so that it is carried forward.
+\item \code{features} - Matrix with a row for each CRAN package, and a column for each variable.
+This feature matrix is constructed using each of the three different types of features as described
+at the end of the \strong{Details} section.
+\item \code{All_data} - List containing a package and an author network created with cranly.
+\item \code{pac_network_igraph} - igraph version of the cranly package network.
+\item \code{input_CRAN_data} - This just a list containing all of the data created by \code{\link[=get_NLP]{get_NLP()}}, so that it is carried forward.
 }
 }
 \description{
-In particular this function returns a set of features, and a response matrix for all packages whose data has been extracted.
+\code{get_create_features()} returns a set of features, and a response matrix for all packages whose data has been extracted.
 A subset of these are then used for model training and testing. And the features of the packages are required to generate model predictions, using the trained model.
 }
 \details{
@@ -61,13 +63,13 @@ Each element is a character vector with the name of Task Views that the correspo
 \item Response matrix is created - object is described in the \strong{Value} section of documentation.
 \item The feature matrices are then created, these are matrices where each row corresponds to a feature vector for a CRAN package.
 The final feature matrix is then a combination of each of these individual matrices.
+}
+
 In the description of the feature matrices below, let \eqn{x} denote an example CRAN package.
 \describe{
 \item{Package Dependencies}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of the hard dependencies of \eqn{x}.
-
 For example if a quarter of the hard dependencies of \eqn{x} belong to Bayesian than the corresponding element of the vector will be 0.25.}
 \item{Other Author Packages}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of other packages developed by the authors of \eqn{x}.}
 \item{Text Data}{\link{feature_matrix_titles_descriptions_packages_cosine} object is created by the \code{\link[=get_NLP]{get_NLP()}} function.}
-}
 }
 }

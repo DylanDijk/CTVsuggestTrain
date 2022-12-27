@@ -10,33 +10,48 @@ Train_model(
   get_input_stored = FALSE,
   get_input_path =
     "tests/testthat/fixtures/get_CRAN_logs_output/get_CRAN_logs_output.rds",
-  save = FALSE,
-  path = "OUTPUT/"
+  save_output = FALSE,
+  save_path = "OUTPUT/"
 )
 }
 \arguments{
-\item{TEST}{Logical. If FALSE model is trained using all available CRAN data, otherwise it is restricted to a subset.}
+\item{TEST}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 
-\item{limiting_n_observations}{Integer. Decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+More precisely, if \code{\link{TRUE}} a random selection of rows from \code{CRAN_data} is selected, where the number of rows
+chosen is given by \code{limiting_n_observations}.}
 
-\item{get_input_stored}{Integer. Decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+\item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 
-\item{get_input_path}{Integer. Decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
+\item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_data]{get_data()}} function.}
 
-\item{save}{Logical. If \code{\link{TRUE}} then saves objects that are returned by this function to disk.}
+\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path location of the pre-saved data.}
 
-\item{path}{Logical. If \code{\link{TRUE}} then saves objects that are returned by this function to disk.}
+\item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
+\code{save_path}.}
+
+\item{save_path}{string. Sets the path where the list created by the function will be saved,
+which is when \code{save_output} is set to \code{\link{TRUE}}}
 }
 \value{
 Returns
 \itemize{
-\item model - Model object
-\item predicted_probs_for_suggestions -
-\item model accuracy - A percentage value which says how accurate the model is on a test set.
+\item \code{predicted_probs_for_suggestions} - \link{data.frame} where each row is the predicted probability vector for each CRAN package that is not assigned Task View
+that does not meet monthly download threshold. \code{predicted_probs_for_suggestions} is created using the \code{\link[=predict]{predict()}} function and the \code{model} object.
+\item \code{model} - Model object
+\item \code{model} accuracy - A percentage value which says how accurate the model is on a test set.
 }
 }
 \description{
-Trains model
+\code{Train_model()} trains a multinomial logistic regression model with a LASSO penalty, where the outcome categories are the current CRAN Task Views
+and an additional "None" category.
+}
+\details{
+The \code{Train_model()} function, relies on the four internal functions \code{\link[=get_data]{get_data()}}, \code{\link[=get_NLP]{get_NLP()}}, \code{\link[=get_create_features]{get_create_features()}} and \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}.
+These four internal functions are run within each other in this order e.g. \code{Train_model()} initiates with running \code{\link[=get_CRAN_logs]{get_CRAN_logs()}} which initiates with \code{\link[=get_create_features]{get_create_features()}}.
+Hence the entire pipeline begins with \code{\link[=get_data]{get_data()}}.
+
+The \code{Train_model()} function itself, after running \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}, carries out the model training using the response matrix and feature matrix that were constructed with the four internal
+functions mentioned above.
 }
 \examples{
 \dontrun{

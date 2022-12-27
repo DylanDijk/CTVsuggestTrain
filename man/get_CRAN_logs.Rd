@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_CRAN_logs.R
 \name{get_CRAN_logs}
 \alias{get_CRAN_logs}
-\title{Calculates a monthly package download threshold.}
+\title{Calculates a monthly package download threshold}
 \usage{
 get_CRAN_logs(
   TEST = FALSE,
@@ -19,13 +19,13 @@ get_CRAN_logs(
 \item{TEST}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then a subset of the data that is extracted from CRAN is selected. This is to speed up testing.
 
 More precisely, if \code{\link{TRUE}} a random selection of rows from \code{CRAN_data} is selected, where the number of rows
-is given by \code{limiting_n_observations}.}
+chosen is given by \code{limiting_n_observations}.}
 
 \item{limiting_n_observations}{Integer that decides the size of the subset of \code{CRAN_data}, when \code{TEST} is \code{\link{TRUE}}.}
 
-\item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_create_features]{get_create_features()}} function.}
+\item{get_input_stored}{logical. If \code{\link{TRUE}} then the function uses pre saved data as input, otherwise it runs the \code{CTVsuggestTrain }internal \code{\link[=get_data]{get_data()}} function.}
 
-\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path loaction of the pre saved data.}
+\item{get_input_path}{string. If \code{get_input_stored} is set to \code{\link{TRUE}}, \code{get_input_path} gives the path location of the pre-saved data.}
 
 \item{save_output}{logical. Default is \code{\link{FALSE}}. If \code{\link{TRUE}}, then the list that is returned is saved to the path set by
 \code{save_path}.}
@@ -38,11 +38,22 @@ which is when \code{save_output} is set to \code{\link{TRUE}}}
 \value{
 Returns
 \itemize{
-\item no_tsk_pckgs_meet_threshold - vector of packages that are not assigned a Task View and meet monthly download threshold.
-\item response_matrix, features, final_package_names, tvdb - are objects created by CTVsuggest:::get_create_features function, that need to be carried forward.
+\item \code{no_tsk_pckgs_meet_threshold} - vector of packages that are not assigned a Task View and meet monthly download threshold.
+\item \code{response_matrix}, \code{features}, \code{final_package_names}, \code{tvdb} - are objects created by CTVsuggest:::get_create_features function, that need to be carried forward.
 }
 }
 \description{
 Looks at the monthly downloads of packages that are assigned a Task View.
 Then uses this data to select a  monthly package download threshold to decide which packages, that are not assigned a Task View, will be used in model training.
+}
+\details{
+The \code{get_CRAN_logs()} function is run inside \code{\link[=Train_model]{Train_model()}}.
+
+\code{get_CRAN_logs()} carries out the following steps:
+\itemize{
+\item Firstly, creates list object that gives the monthly downloads for each package in a Task View for the past month using \code{\link[cranlogs:cran_downloads]{cranlogs::cran_downloads()}}.
+Using this list, it Computes the 75th percentile of the monthly downloads
+\item Next, a vector of packages that are not assigned a Task View and whose monthly downloads exceeds this threshold is created.
+These packages are those that will be a labelled as not belonging to a Task Viw in the training of the model.
+}
 }
