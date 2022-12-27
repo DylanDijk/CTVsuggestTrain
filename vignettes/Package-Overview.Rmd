@@ -2,7 +2,7 @@
 title: "CTVsuggest Overview"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Package-Overview}
+  %\VignetteIndexEntry{CTVsuggest Overview}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
