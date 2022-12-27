@@ -8,6 +8,13 @@
 \description{
 Contains functions to construct a model which aims to classify packages into Task Views. The predictions of the model are outputted by the CTVsuggest package.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://dylandijk.github.io/CTVsuggestTrain/}
+}
+
+}
 \author{
 \strong{Maintainer}: Dylan Dijk \email{zl2291@bristol.ac.uk} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
 
