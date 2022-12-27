@@ -151,8 +151,8 @@ predicted_probs_for_suggestions$Packages = row.names(predicted_probs_for_suggest
 
 if(save_output){
 
-  if(!dir.exists(file.path(path))){
-    dir.create(file.path(path))
+  if(!dir.exists(file.path(save_path))){
+    dir.create(file.path(save_path))
   }
 
 attr(model, "date") = Sys.Date()
@@ -160,10 +160,10 @@ attr(predicted_probs_for_suggestions, "date") = Sys.Date()
 attr(model_accuracy, "date") = Sys.Date()
 
 
-save(model, file = file.path(path, "model.rda"))
-save(predicted_probs_for_suggestions, file = file.path(path, "predicted_probs_for_suggestions.rda"))
-save(model_accuracy, file = file.path(path, "model_accuracy.rda"))
-message("Objects: model, predicted_probs_for_suggestions and model_accuracy have been saved to the path ", file.path(path))
+save(model, file = file.path(save_path, "model.rda"))
+save(predicted_probs_for_suggestions, file = file.path(save_path, "predicted_probs_for_suggestions.rda"))
+save(model_accuracy, file = file.path(save_path, "model_accuracy.rda"))
+message("Objects: model, predicted_probs_for_suggestions and model_accuracy have been saved to the path ", file.path(save_path))
 
 
 }else{
