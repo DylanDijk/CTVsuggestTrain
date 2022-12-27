@@ -1,5 +1,5 @@
 ---
-title: "Package-Overview"
+title: "CTVsuggest Overview"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Package-Overview}
