@@ -30,7 +30,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::pkgdown, local::.
+          extra-packages: any::pkgdown, any::XML, local::.
           needs: website
 
       - name: Build site
@@ -42,5 +42,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           clean: false
-          branch: gh-pages
+          branch: main
           folder: docs
