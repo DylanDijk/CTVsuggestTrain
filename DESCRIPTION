@@ -18,6 +18,7 @@ Imports:
     cranlogs,
     cranly,
     data.table,
+    devtools,
     dplyr,
     glmnet,
     igraph,
