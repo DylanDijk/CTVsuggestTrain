@@ -34,7 +34,7 @@ jobs:
           needs: website
 
       - name: Build site
-        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE, dest_dir = "docs")
         shell: Rscript {0}
 
       - name: Deploy to GitHub pages 🚀
@@ -42,5 +42,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           clean: false
-          branch: main
-          folder: docs
+          branch: gh-pages
+          folder: root
