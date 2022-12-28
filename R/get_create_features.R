@@ -21,7 +21,7 @@
 #'     \item{Package Dependencies}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of the hard dependencies of \eqn{x}.
 #'     For example if a quarter of the hard dependencies of \eqn{x} belong to Bayesian than the corresponding element of the vector will be 0.25.}
 #'     \item{Other Author Packages}{Feature vector of a package \eqn{x}, is the distribution of the Task View assignation of other packages developed by the authors of \eqn{x}.}
-#'     \item{Text Data}{[feature_matrix_titles_descriptions_packages_cosine] object is created by the [get_NLP()] function.}
+#'     \item{Text Data}{`feature_matrix_titles_descriptions_packages_cosine` object is created by the [get_NLP()] function.}
 #'  }
 #'
 #'

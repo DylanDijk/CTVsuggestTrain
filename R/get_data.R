@@ -23,9 +23,7 @@
 #'  }
 #'
 #' @examples
-#' \dontrun{
-#'    CTVsuggestTrain:::get_data(TEST = TRUE, limiting_n_observations = 100)
-#'    }
+#' CTVsuggestTrain:::get_data(TEST = TRUE, limiting_n_observations = 100)
 get_data = function(TEST = FALSE,
                     limiting_n_observations = 100,
                     save_output = FALSE,

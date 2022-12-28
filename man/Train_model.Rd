@@ -53,8 +53,3 @@ Hence the entire pipeline begins with \code{\link[=get_data]{get_data()}}.
 The \code{Train_model()} function itself, after running \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}, carries out the model training using the response matrix and feature matrix that were constructed with the four internal
 functions mentioned above.
 }
-\examples{
-\dontrun{
-Train_model()
-}
-}

@@ -54,7 +54,5 @@ The \code{get_data()} function is run inside \code{\link[=get_NLP]{get_NLP()}}.
 \code{get_data()} then also runs the \code{\link[cranly:clean_CRAN_db]{cranly::clean_CRAN_db()}} function on the CRAN data repository.
 }
 \examples{
-\dontrun{
-   CTVsuggestTrain:::get_data(TEST = TRUE, limiting_n_observations = 100)
-   }
+CTVsuggestTrain:::get_data(TEST = TRUE, limiting_n_observations = 100)
 }

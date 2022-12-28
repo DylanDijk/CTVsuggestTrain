@@ -7,16 +7,12 @@
 download_taskview_data(repos = getOption("repos")[1])
 }
 \arguments{
-\item{repos}{}
+\item{repos}{Default option set to the CRAN repository "https://cran.rstudio.com/".}
 }
 \value{
-Data of the current Task Views available
+Data of the current Task Views available.
 }
 \description{
 This is a modification of the RWsearch::tvdb_down function, this modified version does not save a file to disk.
-}
-\examples{
-\donttest{
-tvdb = download_taskview_data()
-}
+Default option is to extract Task View data from CRAN Task View repository: "https://cran.rstudio.com/src/contrib/Views.rds"
 }

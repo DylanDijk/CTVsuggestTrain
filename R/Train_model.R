@@ -23,10 +23,7 @@
 #' }
 #' @export
 #'
-#' @examples
-#' \dontrun{
-#' Train_model()
-#' }
+
 Train_model = function(TEST = FALSE,
                        limiting_n_observations = 100,
                        get_input_stored = FALSE,
