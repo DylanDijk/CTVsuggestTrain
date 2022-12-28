@@ -31,13 +31,13 @@ There is a main function, `CTVsuggest::CTVsuggest()`, that outputs these suggest
 
 First install the **CTVsuggest** package:
 ```{r, warning = FALSE, message = FALSE, results='hide'}
-library(devtools)
-install_github("DylanDijk/CTVsuggest")
+#library(devtools)
+#install_github("DylanDijk/CTVsuggest")
 ```
 
 Then attach the package.
 ```{r}
-library(CTVsuggest)
+#library(CTVsuggest)
 ```
 
 
