@@ -19,7 +19,7 @@
 #'   \item `predicted_probs_for_suggestions` - [data.frame] where each row is the predicted probability vector for each CRAN package that is not assigned Task View
 #'         that does not meet monthly download threshold. `predicted_probs_for_suggestions` is created using the [predict()] function and the `model` object.
 #'   \item `model` - Model object
-#'   \item `model` accuracy - A percentage value which says how accurate the model is on a test set.
+#'   \item `model_accuracy` - A percentage value which says how accurate the model is on a test set.
 #' }
 #' @export
 #'

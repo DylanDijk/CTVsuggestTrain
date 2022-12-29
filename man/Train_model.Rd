@@ -38,7 +38,7 @@ Returns
 \item \code{predicted_probs_for_suggestions} - \link{data.frame} where each row is the predicted probability vector for each CRAN package that is not assigned Task View
 that does not meet monthly download threshold. \code{predicted_probs_for_suggestions} is created using the \code{\link[=predict]{predict()}} function and the \code{model} object.
 \item \code{model} - Model object
-\item \code{model} accuracy - A percentage value which says how accurate the model is on a test set.
+\item \code{model_accuracy} - A percentage value which says how accurate the model is on a test set.
 }
 }
 \description{

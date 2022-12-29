@@ -1,4 +1,5 @@
 url: https://dylandijk.github.io/CTVsuggestTrain/
 template:
   bootstrap: 5
-
+deploy:
+    install_metadata: true
