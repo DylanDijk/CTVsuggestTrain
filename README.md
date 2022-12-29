@@ -8,8 +8,7 @@
 
 **CTVsuggestTrain** carries out the model building and creates the
 `data.frame` containing the classification probabilities outputted by
-the
-[**CTVsuggestTrain**](https://dylandijk.github.io/CTVsuggest/index.html)
+the [**CTVsuggest**](https://dylandijk.github.io/CTVsuggest/index.html)
 package.
 
 The **CTVsuggestTrain** package has a single exported function:
