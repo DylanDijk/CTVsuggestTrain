@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   Package-Overview: Package-Overview.html
-last_built: 2022-12-29T09:49Z
+last_built: 2022-12-29T11:21Z
 urls:
   reference: https://dylandijk.github.io/CTVsuggestTrain/reference
   article: https://dylandijk.github.io/CTVsuggestTrain/articles
