@@ -34,4 +34,4 @@ Imports:
     tidytext,
     tools
 Config/testthat/edition: 3
-URL: https://dylandijk.github.io/CTVsuggestTrain/
+URL: https://dylandijk.github.io/CTVsuggestTrain/, https://github.com/DylanDijk/CTVsuggestTrain
