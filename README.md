@@ -1,0 +1,47 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# CTVsuggestTrain
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+**CTVsuggestTrain** carries out the model building and creates the
+`data.frame` containing the classification probabilities outputted by
+the
+[**CTVsuggestTrain**](https://dylandijk.github.io/CTVsuggest/index.html)
+package.
+
+The **CTVsuggestTrain** package has a single exported function:
+`Train_model()`, that constructs features and trains a multinomial
+logistic regression model with the objective of classifying CRAN
+packages to available [CRAN Task
+Views](https://github.com/cran-task-views/ctv#available-task-views). For
+further a more detailed description of the model, view the [Model
+Section](https://dylandijk.github.io/CTVsuggestTrain/articles/Package-Overview.html#the-model)
+of the [CTVsuggest Overview
+Vignette](https://dylandijk.github.io/CTVsuggest/articles/CTVsuggest-Overview.html).
+
+The `Train_model()` function takes a while to run, on my machine (add
+specs) it takes 30 minutes.
+
+## Installation
+
+You can install the development version of CTVsuggestTrain from GitHub
+with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("DylanDijk/CTVsuggestTrain")
+```
+
+## Example
+
+The following code saves the model, model accuracy and `data.frame`
+containing classification probabilities for packages to an `"OUTPUT"`
+directory in your current working directory.
+
+``` r
+library(CTVsuggestTrain)
+Train_model(save_output = TRUE, save_path = "OUTPUT/")
+```
