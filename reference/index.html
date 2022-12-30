@@ -21,12 +21,6 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
-<li class="nav-item dropdown">
-  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
-  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
-    <a class="dropdown-item" href="../articles/Package-Overview.html">CTVsuggest Overview</a>
-  </div>
-</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
@@ -47,9 +41,9 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="train-model">Train Model<a class="anchor" aria-label="anchor" href="#train-model"></a></h2>
       
-      
+      <p class="section-desc"></p><p>Trains the model, uses the four internal functions listed in the subsection below.</p>
 
       
     </div><div id="" class="section level2">
@@ -62,16 +56,22 @@
           <code><a href="Train_model.html">Train_model()</a></code> 
         </dt>
         <dd>Trains model</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="internal-functions-used-by-train-model-">Internal functions used by <code>Train_model()</code><a class="anchor" aria-label="anchor" href="#internal-functions-used-by-train-model-"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
           
-          <code><a href="download_taskview_data.html">download_taskview_data()</a></code> 
+          <code><a href="get_data.html">get_data()</a></code> 
         </dt>
-        <dd>Downloads Task View data</dd>
-      </dl><dl><dt>
-          
-          <code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code> 
-        </dt>
-        <dd>Calculates a monthly package download threshold</dd>
+        <dd>Extracts data used to create features for model</dd>
       </dl><dl><dt>
           
           <code><a href="get_NLP.html">get_NLP()</a></code> 
@@ -84,16 +84,33 @@
         <dd>Creates a feature matrix for CRAN packages</dd>
       </dl><dl><dt>
           
-          <code><a href="get_data.html">get_data()</a></code> 
+          <code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code> 
         </dt>
-        <dd>Extracts data used to create features for model</dd>
+        <dd>Calculates a monthly package download threshold</dd>
+      </dl></div><div class="section level2">
+      <h2 id="helpers">Helpers<a class="anchor" aria-label="anchor" href="#helpers"></a></h2>
+      
+      
+
+      
+    </div><div id="" class="section level2">
+      
+      
+      
+
+      <dl><dt>
+          
+          <code><a href="download_taskview_data.html">download_taskview_data()</a></code> 
+        </dt>
+        <dd>Downloads Task View data</dd>
       </dl><dl><dt>
           
           <code><a href="save_or_return_objects.html">save_or_return_objects()</a></code> 
         </dt>
         <dd>Helper function that returns or saves objects created by functions in this package.</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
