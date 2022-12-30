@@ -157,9 +157,9 @@ if(save_output){
     dir.create(file.path(save_path))
   }
 
-attr(model, "date") = Sys.Date()
-attr(predicted_probs_for_suggestions, "date") = Sys.Date()
-attr(model_accuracy, "date") = Sys.Date()
+attr(model, "date") = Sys.time()
+attr(predicted_probs_for_suggestions, "date") = Sys.time()
+attr(model_accuracy, "date") = Sys.time()
 
 
 save(model, file = file.path(save_path, "model.rda"))

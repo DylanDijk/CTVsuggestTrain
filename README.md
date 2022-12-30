@@ -25,6 +25,8 @@ The `Train_model()` function takes a while to run, on my machine
 (*Windows Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz, 2112 Mhz, 4 Cores,
 8 Logical Processors*) it takes 30 minutes.
 
+------------------------------------------------------------------------
+
 Important to note that in order to output suggestions using the
 **CTVsuggest** package, you can completely ignore the
 **CTVsuggestTrain** package. I will use this package to train the model

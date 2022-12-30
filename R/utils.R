@@ -1,4 +1,5 @@
-
+#' Save or return objects
+#'
 #' Helper function that returns or saves objects created by functions in this package.
 #'
 #' @param TEST Logical. If TRUE then the objects it is saving have been generated from a test.

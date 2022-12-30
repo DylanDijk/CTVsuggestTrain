@@ -6,10 +6,11 @@ deploy:
 reference:
 - title: Train Model
   desc: Trains the model, uses the four internal functions listed in the subsection below.
+  Note that the arguments of these functions exist to help with testing and can be ignored.
   contents:
   - Train_model 
 
-- title: Internal functions used by `Train_model()`
+- subtitle: Internal functions used by `Train_model()`
   contents:
   - get_data
   - get_NLP
