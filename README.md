@@ -17,12 +17,25 @@ logistic regression model with the objective of classifying CRAN
 packages to available [CRAN Task
 Views](https://github.com/cran-task-views/ctv#available-task-views). For
 further a more detailed description of the model, view the [Model
-Section](https://dylandijk.github.io/CTVsuggestTrain/articles/Package-Overview.html#the-model)
+Section](https://dylandijk.github.io/CTVsuggest/articles/Package-Overview.html#the-model)
 of the [CTVsuggest Overview
 Vignette](https://dylandijk.github.io/CTVsuggest/articles/CTVsuggest-Overview.html).
 
-The `Train_model()` function takes a while to run, on my machine (add
-specs) it takes 30 minutes.
+The `Train_model()` function takes a while to run, on my machine
+(*Windows Intel(R) Core(TM) i5-10210U CPU @ 1.60GHz, 2112 Mhz, 4 Cores,
+8 Logical Processors*) it takes 30 minutes.
+
+Important to note that in order to output suggestions using the
+**CTVsuggest** package, you can completely ignore the
+**CTVsuggestTrain** package. I will use this package to train the model
+weekly in order to keep it up to date. Having this code packaged makes
+it easier for me to carry out model training, and makes the model
+building transparent for others to inspect how it is carried out.
+
+For further detail on the workflow view the [Packages Workflow
+Section](https://dylandijk.github.io/CTVsuggest/articles/CTVsuggest-Overview.html#the-package-workflow)
+of the [CTVsuggest Overview
+Vignette](https://dylandijk.github.io/CTVsuggest/articles/CTVsuggest-Overview.html).
 
 ## Installation
 
@@ -44,3 +57,6 @@ directory in your current working directory.
 library(CTVsuggestTrain)
 Train_model(save_output = TRUE, save_path = "OUTPUT/")
 ```
+
+The code example above is the code I run to retrieve an up to date
+model.

@@ -3,3 +3,20 @@ template:
   bootstrap: 5
 deploy:
     install_metadata: true
+reference:
+- title: Train Model
+  desc: Trains the model, uses the four internal functions listed in the subsection below.
+  contents:
+  - Train_model 
+
+- title: Internal functions used by `Train_model()`
+  contents:
+  - get_data
+  - get_NLP
+  - get_create_features
+  - get_CRAN_logs
+
+- title: Helpers
+  contents:
+  - download_taskview_data
+  - save_or_return_objects

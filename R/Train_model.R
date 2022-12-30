@@ -23,6 +23,11 @@
 #' }
 #' @export
 #'
+#' @examples
+#' \dontrun{
+#' Train_model(save_output = TRUE, save_path = "OUTPUT/")
+#' }
+#'
 
 Train_model = function(TEST = FALSE,
                        limiting_n_observations = 100,
