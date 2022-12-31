@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{save_or_return_objects}
 \alias{save_or_return_objects}
-\title{Helper function that returns or saves objects created by functions in this package.}
+\title{Save or return objects}
 \usage{
 save_or_return_objects(
   TEST,

@@ -12,7 +12,7 @@ Contains functions to construct a model which aims to classify packages into Tas
 Useful links:
 \itemize{
   \item \url{https://dylandijk.github.io/CTVsuggestTrain/}
-  \item \url{https://github.com/dylandijk/CTVsuggest}
+  \item \url{https://github.com/DylanDijk/CTVsuggestTrain}
 }
 
 }

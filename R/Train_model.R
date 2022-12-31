@@ -5,7 +5,13 @@
 #'  and an additional "None" category.
 #'
 #' @details
-#' The `Train_model()` function, relies on the four internal functions [get_data()], [get_NLP()], [get_create_features()] and [get_CRAN_logs()].
+#' The `Train_model()` function, relies on the four internal functions:
+#'
+#' * [get_data()]
+#' * [get_NLP()]
+#' * [get_create_features()]
+#' * [get_CRAN_logs()]
+#'
 #' These four internal functions are run within each other in this order e.g. `Train_model()` initiates with running [get_CRAN_logs()] which initiates with [get_create_features()].
 #' Hence the entire pipeline begins with [get_data()].
 #'

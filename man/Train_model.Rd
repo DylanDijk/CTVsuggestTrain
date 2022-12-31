@@ -46,10 +46,23 @@ that does not meet monthly download threshold. \code{predicted_probs_for_suggest
 and an additional "None" category.
 }
 \details{
-The \code{Train_model()} function, relies on the four internal functions \code{\link[=get_data]{get_data()}}, \code{\link[=get_NLP]{get_NLP()}}, \code{\link[=get_create_features]{get_create_features()}} and \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}.
+The \code{Train_model()} function, relies on the four internal functions:
+\itemize{
+\item \code{\link[=get_data]{get_data()}}
+\item \code{\link[=get_NLP]{get_NLP()}}
+\item \code{\link[=get_create_features]{get_create_features()}}
+\item \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}
+}
+
 These four internal functions are run within each other in this order e.g. \code{Train_model()} initiates with running \code{\link[=get_CRAN_logs]{get_CRAN_logs()}} which initiates with \code{\link[=get_create_features]{get_create_features()}}.
 Hence the entire pipeline begins with \code{\link[=get_data]{get_data()}}.
 
 The \code{Train_model()} function itself, after running \code{\link[=get_CRAN_logs]{get_CRAN_logs()}}, carries out the model training using the response matrix and feature matrix that were constructed with the four internal
 functions mentioned above.
+}
+\examples{
+\dontrun{
+Train_model(save_output = TRUE, save_path = "OUTPUT/")
+}
+
 }
