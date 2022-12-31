@@ -103,13 +103,24 @@ that does not meet monthly download threshold. <code>predicted_probs_for_suggest
 </ul></div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The <code>Train_model()</code> function, relies on the four internal functions <code><a href="get_data.html">get_data()</a></code>, <code><a href="get_NLP.html">get_NLP()</a></code>, <code><a href="get_create_features.html">get_create_features()</a></code> and <code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code>.
-These four internal functions are run within each other in this order e.g. <code>Train_model()</code> initiates with running <code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code> which initiates with <code><a href="get_create_features.html">get_create_features()</a></code>.
+    <p>The <code>Train_model()</code> function, relies on the four internal functions:</p><ul><li><p><code><a href="get_data.html">get_data()</a></code></p></li>
+<li><p><code><a href="get_NLP.html">get_NLP()</a></code></p></li>
+<li><p><code><a href="get_create_features.html">get_create_features()</a></code></p></li>
+<li><p><code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code></p></li>
+</ul><p>These four internal functions are run within each other in this order e.g. <code>Train_model()</code> initiates with running <code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code> which initiates with <code><a href="get_create_features.html">get_create_features()</a></code>.
 Hence the entire pipeline begins with <code><a href="get_data.html">get_data()</a></code>.</p>
 <p>The <code>Train_model()</code> function itself, after running <code><a href="get_CRAN_logs.html">get_CRAN_logs()</a></code>, carries out the model training using the response matrix and feature matrix that were constructed with the four internal
 functions mentioned above.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">Train_model</span><span class="op">(</span>save_output <span class="op">=</span> <span class="cn">TRUE</span>, save_path <span class="op">=</span> <span class="st">"OUTPUT/"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside></div>
 
