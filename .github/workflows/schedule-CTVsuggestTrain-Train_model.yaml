@@ -2,6 +2,8 @@ on:
   schedule:
     - cron: "40 8 * * TUE"
 
+name: schedule-train-model
+
 jobs:
   ctvsuggesttrain-train-model:
     runs-on: ubuntu-latest
