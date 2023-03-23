@@ -24,7 +24,7 @@ Vignette](https://dylandijk.github.io/CTVsuggest/articles/CTVsuggest-Overview.ht
 Important to note that in order to output suggestions using the
 [CTVsuggest](https://dylandijk.github.io/CTVsuggest/index.html) package,
 you can completely ignore the CTVsuggestTrain package. I use
-CTVsuggestTrain to train the model weekly in order to update that
+CTVsuggestTrain to train the model weekly in order to update the
 predictions provided by
 [CTVsuggest](https://dylandijk.github.io/CTVsuggest/index.html). Having
 the code packaged makes it easier for me to carry out model training,
