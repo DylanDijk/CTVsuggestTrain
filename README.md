@@ -9,7 +9,7 @@
 CTVsuggestTrain carries out the model building, and creates the
 `data.frame` containing the classification probabilities that is
 outputted by the
-[CTVsuggest](https://dylandijk.github.io/CTVsuggest/index.html) package.
+[CTVsuggest](https://dylandijk.github.io/CTVsuggest/index.html) package.  
 These R packages are based on follow up work of my 4<sup>th</sup> year university [dissertation](https://dylandijk.github.io/assets/pdf/Dissertation.pdf) supervised by [Ioannis Kosmidis](https://www.ikosmidis.com/)
 
 The CTVsuggestTrain R package has a single exported function:
