@@ -295,62 +295,59 @@ get_create_features = function(TEST = FALSE,
 
 #### ----------------------------------------------------------------------------------------------- ####
 
- ### Creating training and testing data sets ###
-  # I am going to split the labelled data with 80:20 ratio
+  ### merging feature matrices ###
+
   # The labeled data consists of:
   #             > Packages with assigned Task Views
   #             > Packages with no Task View that meet assigned download Threshold
 
-
-
-
-  # merging feature matrices
+  # converting individual feature objects to data frames
   feature_matrix_all_neighbour_pkgs_df = as.data.frame(feature_matrix_all_neighbour_pkgs)
   feature_matrix_author_task_views_df = as.data.frame(feature_matrix_author_task_views)
-
   feature_matrix_titles_descriptions_packages_cosine_df = as.data.frame(get_NLP_output$feature_matrix_titles_descriptions_packages_cosine)
+
+  # transposing the NLP feature object
   feature_matrix_titles_descriptions_packages_cosine_df = t(feature_matrix_titles_descriptions_packages_cosine_df)
 
 
-
   # Removing duplicated rows
-  response_matrix                                       = response_matrix[!duplicated(row.names(response_matrix)),]
-  feature_matrix_all_neighbour_pkgs                     = feature_matrix_all_neighbour_pkgs[!duplicated(row.names(feature_matrix_all_neighbour_pkgs)),]
-  feature_matrix_titles_descriptions_packages_cosine_df = feature_matrix_titles_descriptions_packages_cosine_df[!duplicated(row.names(feature_matrix_titles_descriptions_packages_cosine_df)),]
-  feature_matrix_author_task_views                      = feature_matrix_author_task_views[!duplicated(row.names(feature_matrix_author_task_views)),]
+  response_matrix                                         = response_matrix[!duplicated(row.names(response_matrix)),]
+  feature_matrix_all_neighbour_pkgs_df                    = feature_matrix_all_neighbour_pkgs_df[!duplicated(row.names(feature_matrix_all_neighbour_pkgs_df)),]
+  feature_matrix_titles_descriptions_packages_cosine_df   = feature_matrix_titles_descriptions_packages_cosine_df[!duplicated(row.names(feature_matrix_titles_descriptions_packages_cosine_df)),]
+  feature_matrix_author_task_views_df                     = feature_matrix_author_task_views_df[!duplicated(row.names(feature_matrix_author_task_views_df)),]
 
 
   # Making sure all feature matrices and response matrix have correct rownames in correct order
-  # # Response matrix
+  ## Response matrix
   # response_matrix
-  # # Package Dependencies
+  ## Package Dependencies
   # feature_matrix_all_neighbour_pkgs
-  # # Text data
+  ## Text data
   # feature_matrix_titles_descriptions_packages_cosine_df
-  # # Author collaborators
+  ## Author collaborators
   # feature_matrix_author_task_views
 
   # Create a final vector of package names that have rows for all the feature matrices and response matrix
   # So what I have done is used rows that have data for all of the feature matrices and the response matrix
   final_package_names =
     Reduce(intersect,list(row.names(response_matrix),
-                          row.names(feature_matrix_all_neighbour_pkgs),
+                          row.names(feature_matrix_all_neighbour_pkgs_df),
                           row.names(feature_matrix_titles_descriptions_packages_cosine_df),
-                          row.names(feature_matrix_author_task_views)))
+                          row.names(feature_matrix_author_task_views_df)))
 
   final_package_names = unique(final_package_names)
 
   response_matrix                                       = response_matrix[final_package_names,]
-  feature_matrix_all_neighbour_pkgs                     = feature_matrix_all_neighbour_pkgs[final_package_names,]
+  feature_matrix_all_neighbour_pkgs_df                  = feature_matrix_all_neighbour_pkgs_df[final_package_names,]
   feature_matrix_titles_descriptions_packages_cosine_df = feature_matrix_titles_descriptions_packages_cosine_df[final_package_names,]
-  feature_matrix_author_task_views                      = feature_matrix_author_task_views[final_package_names,]
+  feature_matrix_author_task_views_df                   = feature_matrix_author_task_views_df[final_package_names,]
 
 
   # Double checking duplicates
   response_matrix                                       = response_matrix[!duplicated(row.names(response_matrix)),]
-  feature_matrix_all_neighbour_pkgs                     = feature_matrix_all_neighbour_pkgs[!duplicated(row.names(feature_matrix_all_neighbour_pkgs)),]
+  feature_matrix_all_neighbour_pkgs_df                  = feature_matrix_all_neighbour_pkgs[!duplicated(row.names(feature_matrix_all_neighbour_pkgs_df)),]
   feature_matrix_titles_descriptions_packages_cosine_df = feature_matrix_titles_descriptions_packages_cosine_df[!duplicated(row.names(feature_matrix_titles_descriptions_packages_cosine_df)),]
-  feature_matrix_author_task_views                      = feature_matrix_author_task_views[!duplicated(row.names(feature_matrix_author_task_views)),]
+  feature_matrix_author_task_views_df                   = feature_matrix_author_task_views_df[!duplicated(row.names(feature_matrix_author_task_views_df)),]
 
 
   features = merge(feature_matrix_titles_descriptions_packages_cosine_df, feature_matrix_all_neighbour_pkgs_df, by="row.names", all.x = TRUE, )

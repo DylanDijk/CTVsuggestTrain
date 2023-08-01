@@ -149,12 +149,18 @@ pkgs_for_suggestions_features = get_CRAN_logs_output$features[pkgs_for_suggestio
 # If there are packages that belong to `pkgs_for_suggestions` but are not in the rownames of features then creates some NA rows. Delete these here:
 pkgs_for_suggestions_features = pkgs_for_suggestions_features[!apply(as.matrix(pkgs_for_suggestions_features),1, function(x){any(is.na(x))}),]
 
-
-
 predicted_probs_for_suggestions = predict(model_multinom_cv, newx = cbind(rep(1, nrow(pkgs_for_suggestions_features)),as.matrix(pkgs_for_suggestions_features)), s = "lambda.min", type = "response")
 predicted_probs_for_suggestions = data.frame(predicted_probs_for_suggestions)
 colnames(predicted_probs_for_suggestions) = gsub(x = colnames(predicted_probs_for_suggestions), pattern = "\\.1", "")
 predicted_probs_for_suggestions$Packages = row.names(predicted_probs_for_suggestions)
+
+
+# Predicted probabilities for all packages that have features, including packages that are assigned to a task view.
+predicted_probs_all = predict(model_multinom_cv, newx = cbind(rep(1, nrow(get_CRAN_logs_output$features)),as.matrix(get_CRAN_logs_output$features)), s = "lambda.min", type = "response")
+predicted_probs_all = data.frame(predicted_probs_all)
+colnames(predicted_probs_all) = gsub(x = colnames(predicted_probs_all), pattern = "\\.1", "")
+predicted_probs_all$Packages = row.names(predicted_probs_all)
+
 #### ----------------------------------------------------------------------------------------------- ####
 
 if(save_output){
@@ -165,19 +171,22 @@ if(save_output){
 
 attr(model, "date") = Sys.time()
 attr(predicted_probs_for_suggestions, "date") = Sys.time()
+attr(predicted_probs_all, "date") = Sys.time()
 attr(model_accuracy, "date") = Sys.time()
 
 
 save(model, file = file.path(save_path, "model.rda"))
 save(predicted_probs_for_suggestions, file = file.path(save_path, "predicted_probs_for_suggestions.rda"))
+save(predicted_probs_all, file = file.path(save_path, "predicted_probs_all.rda"))
 save(model_accuracy, file = file.path(save_path, "model_accuracy.rda"))
-message("Objects: model, predicted_probs_for_suggestions and model_accuracy have been saved to the path ", file.path(save_path))
+message("Objects: model, predicted_probs_for_suggestions, predicted_probs_all and model_accuracy have been saved to the path ", file.path(save_path))
 
 
 }else{
   # If save = FALSE. Then objects are assigned to Global Environment
     return_list = list("model" = model,
                     "predicted_probs_for_suggestions" = predicted_probs_for_suggestions,
+                    "predicted_probs_all" = predicted_probs_all,
                     "model_accuracy" = model_accuracy)
 
     list2env(return_list, envir = .GlobalEnv)
