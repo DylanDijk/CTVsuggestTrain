@@ -145,7 +145,6 @@ get_create_features = function(TEST = FALSE,
 
 
   # Creating list of packages with the Task Views assigned to each one
-
   taskviews_of_pckgs = vector(mode = "list", length = length(packages_assigned_Task_View))
 
   for(j in seq_len(length(packages_assigned_Task_View))){
