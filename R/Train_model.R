@@ -130,8 +130,6 @@ predict_class = predict(model, newx = cbind(rep(1, nrow(test_feature)),as.matrix
 # Getting accuracy of model after applying lasso with min Lambda
 predict_class = factor(predict_class[,1], levels = c(RWsearch::tvdb_vec(get_CRAN_logs_output$tvdb), "none"))
 
-
-
 model_accuracy = mean(test_res[cbind(1:nrow(test_res), predict_class)], na.rm = T)
 model_accuracy = 100*model_accuracy
 
