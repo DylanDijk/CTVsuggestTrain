@@ -4,30 +4,27 @@ from sklearn.metrics import accuracy_score
 import numpy as np
 import xgboost as xgb
 
+# loading R objects
 robjects.r['load']('xgboost/train_features.RData')
 robjects.r['load']('xgboost/train_res.RData')
-
-train_features_py = robjects.r['train_features']
-train_res_py = robjects.r['train_res']
-
-
-# turn the R matrix into a numpy array
-train_features_py = np.array(train_features_py)
-train_features_py
-train_res_py = np.array(train_res_py)
-train_res_py
-
-
 robjects.r['load']('xgboost/test_feature.RData')
 robjects.r['load']('xgboost/test_res.RData')
 
+robjects.r['load']('xgboost/predict_prob.Rdata')
+
+train_features_py = robjects.r['train_features']
+train_res_py = robjects.r['train_res']
 test_features_py = robjects.r['test_feature']
 test_res_py = robjects.r['test_res']
+predict_prob = robjects.r['predict_prob']
+
+# turn the R matrix into a numpy array
+train_features_py = np.array(train_features_py)
+train_res_py = np.array(train_res_py)
 
 test_features_py = np.array(test_features_py)
-test_features_py
 test_res_py = np.array(test_res_py)
-test_res_py
+predict_prob = np.array(predict_prob)
 
 # get dimension
 train_res_py.shape
@@ -40,7 +37,6 @@ train_res_py.shape
 
 # Now looking at xgboost accuracy:
 clf = xgb.XGBClassifier(objective='multi:softprob')
-clf.fit(train_features_py, train_res_py)
 
 # To get multi-class accuracy, I have removed observations with multiple labels
 multi_label_rows = np.zeros(train_res_py.shape[0])
@@ -50,7 +46,6 @@ for i in range(0, train_res_py.shape[0]):
 
 train_res_sing = train_res_py[multi_label_rows == 0,]
 train_features_sing = train_features_py[multi_label_rows == 0,]  
-
 
 multi_label_rows = np.zeros(test_res_py.shape[0])
 for i in range(0, test_res_py.shape[0]):
@@ -72,18 +67,18 @@ for i in range(0, test_res_sing.shape[0]):
 clf.fit(train_features_sing, train_res_class)
 clf.score(test_features_sing, test_res_class)
 # get 85% accuracy, with much faster training time
-# but this is with removing all observations with multiple labels, so is not an exact comparison
+# but this is with removing all observations with multiple labels, so is not an exact comparison.
+
 
 # Now with exact comparison:
 # Need to repeat rows with multiple labels
+
+# Gives vector with the number of labels for each observation
 multi_label_rows = np.zeros(train_res_py.shape[0]).astype(int)
 for i in range(0, train_res_py.shape[0]):
     multi_label_rows[i] = sum(train_res_py[i,])
 
 train_feat_repeat = np.repeat(train_features_py, multi_label_rows, axis=0)
-
-
-
 
 # function that expands binary labels into multiple rows for response matrix
 def expand_binary_labels(array):
@@ -126,7 +121,6 @@ for i in range(0, train_res_repeat.shape[0]):
 
 clf.fit(train_feat_repeat, test_res_class)
 
-
 multi_label_rows = np.zeros(test_res_py.shape[0]).astype(int)
 for i in range(0, test_res_py.shape[0]):
     multi_label_rows[i] = sum(test_res_py[i,])
@@ -161,6 +155,31 @@ clf = xgb.XGBClassifier(tree_method="hist")
 clf.fit(train_features_py, train_res_py)
 np.testing.assert_allclose(clf.predict(test_features_py), test_res_py)
 accuracy_score(test_res_py, clf.predict(test_features_py))
+
+# Overall Accuracy of R model:
+predict_prob.shape
+# changing to class predictions matrix, using largest probabulity
+max_indices = np.argmax(predict_prob, axis=1)
+predict_class = np.zeros_like(predict_prob)
+predict_class[np.arange(predict_class.shape[0]), max_indices] = 1
+
+accuracy_score(predict_class, test_res_py)
+
+t_array = np.array([
+    [1, 0, 0],
+    [1, 0, 0],
+    [1, 0, 1]
+])
+p_array = np.array([
+    [1, 0, 0],
+    [1, 0, 0],
+    [1, 0, 0]
+])
+
+accuracy_score(t_array, p_array)
+
+# For each class (Task View) want to get observations that have a predicted probability larger than 0.8
+
 
 
 
