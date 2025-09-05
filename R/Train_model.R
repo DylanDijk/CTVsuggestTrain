@@ -153,13 +153,14 @@ predicted_probs_for_suggestions = predict(model_multinom_cv, newx = cbind(rep(1,
 predicted_probs_for_suggestions = data.frame(predicted_probs_for_suggestions)
 colnames(predicted_probs_for_suggestions) = gsub(x = colnames(predicted_probs_for_suggestions), pattern = "\\.1", "")
 predicted_probs_for_suggestions$Packages = row.names(predicted_probs_for_suggestions)
-
+colnames(predicted_probs_for_suggestions) <- gsub(x = colnames(predicted_probs_for_suggestions), pattern = "\\.lambda\\.min", replacement = "")
 
 # Predicted probabilities for all packages that have features, including packages that are assigned to a task view.
 predicted_probs_all = predict(model_multinom_cv, newx = cbind(rep(1, nrow(get_CRAN_logs_output$features)),as.matrix(get_CRAN_logs_output$features)), s = "lambda.min", type = "response")
 predicted_probs_all = data.frame(predicted_probs_all)
 colnames(predicted_probs_all) = gsub(x = colnames(predicted_probs_all), pattern = "\\.1", "")
 predicted_probs_all$Packages = row.names(predicted_probs_all)
+colnames(predicted_probs_all) <- gsub(x = colnames(predicted_probs_all), pattern = "\\.lambda\\.min", replacement = "")
 
 #### ----------------------------------------------------------------------------------------------- ####
 
